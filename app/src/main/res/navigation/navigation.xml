@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/nav_login"
-        android:name="com.example.foodtinder.LoginFragment"
+        android:name="com.example.foodtinder.View.LoginFragment"
         android:label="@string/title_LoginFragment"
         tools:layout="@layout/fragment_login" />
 

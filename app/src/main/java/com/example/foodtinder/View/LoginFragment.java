@@ -1,4 +1,4 @@
-package com.example.foodtinder;
+package com.example.foodtinder.View;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+
+import com.example.foodtinder.R;
 
 public class LoginFragment extends Fragment {
 
