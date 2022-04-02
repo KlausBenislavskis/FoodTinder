@@ -1,0 +1,15 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+
+    <group android:id="@+id/data">
+        <item
+            android:id="@+id/nav_moves"
+            android:title="@string/login" />
+        <item
+            android:id="@+id/nav_abilities"
+            android:title="@string/register" />
+
+    </group>
+</menu>
