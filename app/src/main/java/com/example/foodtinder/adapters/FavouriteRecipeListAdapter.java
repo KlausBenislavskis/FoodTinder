@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodtinder.R;
 import com.example.foodtinder.models.RecipeItemModel;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -23,22 +24,29 @@ public class FavouriteRecipeListAdapter extends RecyclerView.Adapter<FavouriteRe
         this.recipeItemModelList = recipeItemModelList;
     }
 
-    public void setOnClickListener(OnClickListener listener){
-        this.listener = listener;
-    }
-
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.fragment_favourite_recipe_list, parent, false);
+        View view = inflater.inflate(R.layout.fragment_recipe_item, parent, false);
         return new ViewHolder(view);
     }
+
+    public void setOnClickListener(OnClickListener listener){
+        this.listener = listener;
+    }
+
+
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.name.setText(recipeItemModelList.get(position).getName());
-        holder.image.setImageResource(Integer.parseInt((recipeItemModelList.get(position).getImage())));
+        Picasso.get()
+                .load(recipeItemModelList.get(position).getImage())
+                .fit()
+                .centerCrop()
+                .into(holder.image);
+
     }
 
     @Override

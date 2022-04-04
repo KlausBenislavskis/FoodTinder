@@ -1,13 +1,13 @@
 package com.example.foodtinder.ui.Favourite_Recipe_List;
 
+import static com.example.foodtinder.mappers.ApiToModel.map;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,48 +15,38 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.foodtinder.MainActivity;
 import com.example.foodtinder.R;
 import com.example.foodtinder.adapters.FavouriteRecipeListAdapter;
-import com.example.foodtinder.adapters.RecipeAdapter;
-import com.example.foodtinder.databinding.FragmentFavouriteRecipeListBinding;
-import com.example.foodtinder.databinding.FragmentLoginBinding;
-import com.example.foodtinder.databinding.FragmentRecipeItemBinding;
 import com.example.foodtinder.models.RecipeItemModel;
+import com.example.foodtinder.repositories.RecipeRepository;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class FavouriteRecipeFragment extends Fragment {
 
-     RecyclerView favouriteList;
-     FavouriteRecipeListAdapter recipeAdapter;
-     FragmentFavouriteRecipeListBinding binding;
-     LinearLayout linearLayout;
-     Button detailsButton;
+    RecyclerView favouriteList;
+    FavouriteRecipeListAdapter recipeAdapter;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        binding = FragmentFavouriteRecipeListBinding.inflate(inflater, container, false);
-        View root = binding.getRoot();
+        View root = inflater.inflate(R.layout.fragment_favourite_recipe_list, container, false);
+        RecipeRepository.getInstance().searchRecipe("chicken");
+
         favouriteList = root.findViewById(R.id.recycle_favourite_list_view);
         favouriteList.hasFixedSize();
         favouriteList.setLayoutManager(new LinearLayoutManager(getActivity()));
-        detailsButton = root.findViewById(R.id.recipe_details_button);
-        linearLayout = root.findViewById(R.id.recipe_details_layout);
-
-        ArrayList<RecipeItemModel> list = new ArrayList<>();
-        list.add(new RecipeItemModel("Recipe name 1", "image 1", "def"));
-        list.add(new RecipeItemModel("Recipe name 2", "image 2", "def"));
-        list.add(new RecipeItemModel("Recipe name 3", "image 3", "def"));
-        list.add(new RecipeItemModel("Recipe name 4", "image 4", "def"));
-
-
+        List<RecipeItemModel> list = map(RecipeRepository.getInstance().getSearchedRecipe().getValue());
         recipeAdapter = new FavouriteRecipeListAdapter(list);
         favouriteList.setAdapter(recipeAdapter);
-        recipeAdapter.setOnClickListener(recipeItem -> {
-        linearLayout.setVisibility(View.VISIBLE);
-        });
+        // detailsButton = root.findViewById(R.id.recipe_details_button);
+        //linearLayout = root.findViewById(R.id.recipe_details_layout);
+
+
+//        recipeAdapter.setOnClickListener(recipeItem -> {
+//        linearLayout.setVisibility(View.VISIBLE);
+//        });
         return root;
     }
 }
