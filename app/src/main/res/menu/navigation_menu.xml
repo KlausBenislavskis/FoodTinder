@@ -5,11 +5,10 @@
 
     <group android:id="@+id/data">
         <item
-            android:id="@+id/nav_moves"
-            android:title="@string/login" />
+            android:id="@+id/nav_home"
+            android:title="@string/home" />
         <item
-            android:id="@+id/nav_abilities"
-            android:title="@string/register" />
-
+            android:id="@+id/nav_login"
+            android:title="@string/login" />
     </group>
 </menu>

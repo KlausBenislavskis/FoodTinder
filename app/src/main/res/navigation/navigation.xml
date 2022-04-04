@@ -7,9 +7,13 @@
 
     <fragment
         android:id="@+id/nav_login"
-        android:name="com.example.foodtinder.View.LoginFragment"
+        android:name="com.example.foodtinder.ui.Login_Register.LoginFragment"
         android:label="@string/title_LoginFragment"
         tools:layout="@layout/fragment_login" />
 
-
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.example.foodtinder.ui.Home.HomeFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_home" />
 </navigation>
