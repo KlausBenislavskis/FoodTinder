@@ -19,6 +19,8 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.foodtinder.ui.Login_Register.LoginFragment;
 import com.example.foodtinder.ui.Login_Register.LoginViewModel;
+
+import com.example.foodtinder.repositories.RecipeRepository;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -28,13 +30,16 @@ public class MainActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     NavigationView navigationDrawer;
     Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initViews();
         setupNavigation();
+        RecipeRepository.getInstance().searchRecipe("chicken");
     }
+
     private void initViews() {
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationDrawer = findViewById(R.id.navigation_drawer);

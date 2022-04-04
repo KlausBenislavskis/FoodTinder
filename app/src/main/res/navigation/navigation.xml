@@ -16,4 +16,9 @@
         android:name="com.example.foodtinder.ui.Home.HomeFragment"
         android:label="Home"
         tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/nav_swipe"
+        android:name="com.example.foodtinder.ui.Swipe.SwipeFragment"
+        android:label="Swipe"
+        tools:layout="@layout/fragment_swipe" />
 </navigation>
