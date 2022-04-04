@@ -3,26 +3,27 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import com.example.foodtinder.MainActivity;
-import com.example.foodtinder.R;
-import com.example.foodtinder.databinding.FragmentLoginBinding;
-public class LoginFragment extends Fragment {
+import androidx.lifecycle.ViewModelProvider;
 
-    private FragmentLoginBinding binding;
+import com.example.foodtinder.databinding.FragmentRegisterBinding;
 
-    private Button button;
+
+public class RegisterFragment extends Fragment {
+
+    private FragmentRegisterBinding binding;
+
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentLoginBinding.inflate(inflater, container, false);
+        RegisterViewModel registerViewModel =
+                new ViewModelProvider(this).get(RegisterViewModel.class);
+        binding = FragmentRegisterBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        button = root.findViewById(R.id.button_login);
-        button.setOnClickListener(v-> ((MainActivity)this.getActivity()).navController.navigate(R.id.nav_home));
         return root;
-
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
