@@ -11,16 +11,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodtinder.R;
 import com.example.foodtinder.models.RecipeItemModel;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder> {
+public class FavouriteRecipeListAdapter extends RecyclerView.Adapter<FavouriteRecipeListAdapter.ViewHolder>{
 
     private List<RecipeItemModel> recipeItemModelList;
     private OnClickListener listener;
 
-    public RecipeAdapter(List<RecipeItemModel> recipeItemModelList) {
+    public FavouriteRecipeListAdapter(List<RecipeItemModel> recipeItemModelList) {
         this.recipeItemModelList = recipeItemModelList;
     }
 
@@ -32,13 +31,14 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.recipe_card, parent, false);
+        View view = inflater.inflate(R.layout.fragment_favourite_recipe_list, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.setData(recipeItemModelList.get(position));
+        holder.name.setText(recipeItemModelList.get(position).getName());
+        holder.image.setImageResource(Integer.parseInt((recipeItemModelList.get(position).getImage())));
     }
 
     @Override
@@ -46,27 +46,8 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         return recipeItemModelList.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView image;
-        TextView name, url;
-
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            image = itemView.findViewById(R.id.item_image);
-            name = itemView.findViewById(R.id.item_name);
-            //url = itemView.findViewById(R.id.item);
-        }
-
-        public void setData(RecipeItemModel recipeItemModel) {
-            Picasso.get()
-                    .load(recipeItemModel.getImage())
-                    .fit()
-                    .centerCrop()
-                    .into(image);
-            name.setText(recipeItemModel.getName());
-//            url.setText(recipeItemModel.getImage());
-        }
-
+    public interface OnClickListener{
+        void OnClick(RecipeItemModel recipeItem);
     }
 
     public List<RecipeItemModel> getItems() {
@@ -77,8 +58,17 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         this.recipeItemModelList = items;
     }
 
-    public interface OnClickListener{
-        void OnClick(RecipeItemModel recipeItem);
+    class ViewHolder extends RecyclerView.ViewHolder {
+        private final ImageView image;
+        private final TextView name;
+
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            image = itemView.findViewById(R.id.recipe_image);
+            name = itemView.findViewById(R.id.recipe_name);
+            itemView.setOnClickListener(v ->{
+                listener.OnClick(recipeItemModelList.get(getBindingAdapterPosition()));
+            });
+        }
     }
 }
-

@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         initViews();
         toolbar.setVisibility(View.INVISIBLE);
     }
+
     private void setupNavigation() {
         navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         setSupportActionBar(toolbar);

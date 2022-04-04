@@ -21,4 +21,9 @@
         android:name="com.example.foodtinder.ui.Swipe.SwipeFragment"
         android:label="Swipe"
         tools:layout="@layout/fragment_swipe" />
+    <fragment
+        android:id="@+id/nav_favourites"
+        android:name="com.example.foodtinder.ui.Favourite_Recipe_List.FavouriteRecipeFragment"
+        android:label="@string/favourites"
+        tools:layout="@layout/fragment_favourite_recipe_list" />
 </navigation>
