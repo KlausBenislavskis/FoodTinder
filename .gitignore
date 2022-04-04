@@ -13,3 +13,12 @@
 .externalNativeBuild
 .cxx
 local.properties
+.idea
+.idea/dictionaries/
+ Android Studio
+build/
+.navigation
+captures/
+output.json
+
+obj/
