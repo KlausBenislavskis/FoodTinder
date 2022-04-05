@@ -2,16 +2,29 @@ package com.example.foodtinder.models;
 
 import android.view.View;
 
+import com.example.foodtinder.models.api.Ingredient;
+
+import java.util.ArrayList;
+
 public class RecipeItemModel {
     private String name, image, url;
+    private ArrayList<Ingredient> ingredients;
+    private ArrayList<String> cautions;
+    private int totalTime;
+    private double calories;
 
-    private View.OnClickListener requestBtnClickListener;
-
-
-    public RecipeItemModel(String name, String image, String url) {
+    public RecipeItemModel(String name, String image, String url, ArrayList<Ingredient> ingredients, ArrayList<String> cautions, double calories, int totalTime) {
         this.name = name;
         this.image = image;
         this.url = url;
+        this.ingredients = ingredients;
+        this.cautions = cautions;
+        this.calories = calories;
+        this.totalTime = totalTime;
+    }
+
+    public ArrayList<Ingredient> getIngredients() {
+        return ingredients;
     }
 
     public String getName() {
@@ -26,11 +39,15 @@ public class RecipeItemModel {
         return url;
     }
 
-    public View.OnClickListener getRequestBtnClickListener() {
-        return requestBtnClickListener;
+    public ArrayList<String> getCautions() {
+        return cautions;
     }
 
-    public void setRequestBtnClickListener(View.OnClickListener requestBtnClickListener) {
-        this.requestBtnClickListener = requestBtnClickListener;
+    public int getTotalTime() {
+        return totalTime;
+    }
+
+    public double getCalories() {
+        return calories;
     }
 }

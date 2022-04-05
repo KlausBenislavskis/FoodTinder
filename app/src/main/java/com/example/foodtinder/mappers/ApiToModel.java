@@ -13,7 +13,7 @@ public class ApiToModel {
         for (Hit recipeItem : recipeItems) {
             RecipeItemModel recipeItemModel = new RecipeItemModel(recipeItem.recipe.label,
                     recipeItem.recipe.image,
-                    recipeItem.recipe.url);
+                    recipeItem.recipe.url, recipeItem.recipe.ingredients, recipeItem.recipe.cautions, recipeItem.recipe.calories, recipeItem.recipe.totalTime);
             recipeItemModels.add(recipeItemModel);
         }
         return recipeItemModels;

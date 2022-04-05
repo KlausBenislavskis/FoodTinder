@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cell_content_view"
         android:layout_width="match_parent"
-        android:layout_height="180dp"
+        android:layout_height="wrap_content"
         android:background="@color/white_alpha40"
         android:visibility="gone">
 
@@ -19,36 +19,90 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@color/white"
+            android:gravity="center_vertical|center_horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:gravity="center_vertical|center_horizontal"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/recipe_small_image"
-            android:layout_width="203dp"
-            android:layout_height="99dp"
+            android:layout_width="172dp"
+            android:layout_height="172dp"
             android:layout_marginStart="16dp"
-            android:layout_marginBottom="116dp"
+            android:background="@drawable/round_layout_bg"
             android:translationY="100dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/recipe_title2"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintVertical_bias="0.0" />
 
-        <Button
-            android:id="@+id/details_button"
+        <TextView
+            android:id="@+id/recipe_ingredients"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="120dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recipe_small_image" />
+
+        <TextView
+            android:id="@+id/recipe_totalTime"
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="24dp"
+            app:layout_constraintBottom_toTopOf="@+id/recipe_calories"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/recipe_calories"
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="24dp"
+            app:layout_constraintBottom_toTopOf="@+id/recipe_cautions"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/recipe_cautions"
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="60dp"
+            app:layout_constraintBottom_toTopOf="@+id/recipe_ingredients"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="36dp"
-            android:background="@drawable/round_layout_bg"
-            android:text="Details"
-            android:translationX="200dp"
-            android:translationY="100dp"
-            app:layout_constraintBottom_toBottomOf="@+id/recipe_title2"
-            app:layout_constraintStart_toStartOf="@+id/recipe_small_image"
-            app:layout_constraintTop_toTopOf="@+id/recipe_title2"
-            app:layout_constraintVertical_bias="1.0" />
+            android:layout_marginEnd="88dp"
+            android:layout_marginBottom="4dp"
+            android:text="Total time:"
+            app:layout_constraintBottom_toTopOf="@+id/recipe_totalTime"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="100dp"
+            android:layout_marginBottom="4dp"
+            android:text="Calories:"
+            app:layout_constraintBottom_toTopOf="@+id/recipe_calories"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="96dp"
+            android:layout_marginBottom="4dp"
+            android:text="Cautions:"
+            app:layout_constraintBottom_toTopOf="@+id/recipe_cautions"
+            app:layout_constraintEnd_toEndOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <FrameLayout
@@ -62,5 +116,6 @@
             android:layout_height="50dp"
             android:background="@drawable/round_layout_bg"
             android:gravity="center_vertical|center_horizontal"/>
+
     </FrameLayout>
 </com.ramotion.foldingcell.FoldingCell>
