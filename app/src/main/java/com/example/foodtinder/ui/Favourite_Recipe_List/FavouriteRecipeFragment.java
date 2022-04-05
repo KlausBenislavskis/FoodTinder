@@ -6,26 +6,25 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodtinder.R;
 import com.example.foodtinder.adapters.FavouriteRecipeListAdapter;
 import com.example.foodtinder.models.RecipeItemModel;
 import com.example.foodtinder.repositories.RecipeRepository;
+import com.ramotion.foldingcell.FoldingCell;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class FavouriteRecipeFragment extends Fragment {
 
-    RecyclerView favouriteList;
+    ListView listView;
     FavouriteRecipeListAdapter recipeAdapter;
 
     @Nullable
@@ -34,19 +33,28 @@ public class FavouriteRecipeFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_favourite_recipe_list, container, false);
         RecipeRepository.getInstance().searchRecipe("chicken");
 
-        favouriteList = root.findViewById(R.id.recycle_favourite_list_view);
-        favouriteList.hasFixedSize();
-        favouriteList.setLayoutManager(new LinearLayoutManager(getActivity()));
+        listView = root.findViewById(R.id.mainListView);
+
         List<RecipeItemModel> list = map(RecipeRepository.getInstance().getSearchedRecipe().getValue());
-        recipeAdapter = new FavouriteRecipeListAdapter(list);
-        favouriteList.setAdapter(recipeAdapter);
-        // detailsButton = root.findViewById(R.id.recipe_details_button);
-        //linearLayout = root.findViewById(R.id.recipe_details_layout);
+        recipeAdapter = new FavouriteRecipeListAdapter(getContext(), list);
+        listView.setAdapter(recipeAdapter);
+        recipeAdapter.setDefaultRequestBtnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "DEFAULT HANDLER FOR ALL BUTTONS", Toast.LENGTH_SHORT).show();
+            }
+        });
 
-
-//        recipeAdapter.setOnClickListener(recipeItem -> {
-//        linearLayout.setVisibility(View.VISIBLE);
-//        });
+        // set on click event listener to list view
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
+                // toggle clicked cell state
+                ((FoldingCell) view).toggle(false);
+                // register in adapter that state for selected cell is toggled
+                recipeAdapter.registerToggle(pos);
+            }
+        });
         return root;
     }
 }
