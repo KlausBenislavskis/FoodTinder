@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.ramotion.foldingcell.FoldingCell
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/folding_cell"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cell_content_view"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:background="@color/white_alpha40"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/recipe_title2"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:gravity="center_vertical|center_horizontal"/>
+
+        <ImageView
+            android:id="@+id/recipe_small_image"
+            android:layout_width="203dp"
+            android:layout_height="99dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="116dp"
+            android:translationY="100dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/recipe_title2"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <Button
+            android:id="@+id/details_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="36dp"
+            android:background="@drawable/round_layout_bg"
+            android:text="Details"
+            android:translationX="200dp"
+            android:translationY="100dp"
+            app:layout_constraintBottom_toBottomOf="@+id/recipe_title2"
+            app:layout_constraintStart_toStartOf="@+id/recipe_small_image"
+            app:layout_constraintTop_toTopOf="@+id/recipe_title2"
+            app:layout_constraintVertical_bias="1.0" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <FrameLayout
+        android:id="@+id/cell_title_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/recipe_title"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/round_layout_bg"
+            android:gravity="center_vertical|center_horizontal"/>
+    </FrameLayout>
+</com.ramotion.foldingcell.FoldingCell>
