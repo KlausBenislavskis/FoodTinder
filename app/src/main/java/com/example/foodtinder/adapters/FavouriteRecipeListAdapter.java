@@ -1,5 +1,6 @@
 package com.example.foodtinder.adapters;
 
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,7 @@ import com.squareup.picasso.Picasso;
 import java.util.HashSet;
 import java.util.List;
 
+@SuppressWarnings({"WeakerAccess", "unused"})
 public class FavouriteRecipeListAdapter extends ArrayAdapter<RecipeItemModel> {
 
     private HashSet<Integer> unfoldedIndexes = new HashSet<>();
@@ -40,10 +42,13 @@ public class FavouriteRecipeListAdapter extends ArrayAdapter<RecipeItemModel> {
             LayoutInflater vi = LayoutInflater.from(getContext());
             cell = (FoldingCell) vi.inflate(R.layout.fragment_recipe_folding_item, parent, false);
             // binding view parts to view holder
-            viewHolder.name = cell.findViewById(R.id.recipe_title);
-            viewHolder.name2 = cell.findViewById(R.id.recipe_title2);
+            viewHolder.nameUnfolded = cell.findViewById(R.id.recipe_title);
+            viewHolder.nameFolded = cell.findViewById(R.id.recipe_title2);
             viewHolder.image = cell.findViewById(R.id.recipe_small_image);
-            viewHolder.detailsButton = cell.findViewById(R.id.details_button);
+            viewHolder.ingredients = cell.findViewById(R.id.recipe_ingredients);
+            viewHolder.cautions = cell.findViewById(R.id.recipe_cautions);
+            viewHolder.calories = cell.findViewById(R.id.recipe_calories);
+            viewHolder.totalTime = cell.findViewById(R.id.recipe_totalTime);
             cell.setTag(viewHolder);
         } else {
             // for existing cell set valid valid state(without animation)
@@ -59,31 +64,32 @@ public class FavouriteRecipeListAdapter extends ArrayAdapter<RecipeItemModel> {
             return cell;
 
         // bind data from selected element to view through view holder
-        viewHolder.name.setText(item.getName());
-        viewHolder.name2.setText(item.getName());
+        viewHolder.nameUnfolded.setText(item.getName());
+        viewHolder.nameFolded.setText(item.getName());
         Picasso.get()
                 .load(item.getImage())
                 .fit()
                 .centerCrop()
                 .into(viewHolder.image);
-
-        // set custom btn handler for list item from that item
-        if (item.getRequestBtnClickListener() != null) {
-            viewHolder.detailsButton.setOnClickListener(item.getRequestBtnClickListener());
-        } else {
-            // (optionally) add "default" handler if no handler found in item
-            viewHolder.detailsButton.setOnClickListener(listener);
+        String ing = "";
+        for (int i=0; i< item.getIngredients().size(); i++) {
+            ing += item.getIngredients().get(i).text + "\n";
         }
+        viewHolder.ingredients.setText(ing);
 
+        String cautions = "";
+        for (int i=0; i< item.getCautions().size(); i++) {
+            cautions += item.getCautions().get(i);
+        }
+        viewHolder.cautions.setText(cautions);
+        viewHolder.calories.setText(String.valueOf(Math.round(item.getCalories())));
+        viewHolder.totalTime.setText(String.valueOf(item.getTotalTime()));
         return cell;
-    }
-
-    public interface OnClickListener{
-        void OnClick(RecipeItemModel recipeItem);
     }
 
     public void registerFold(int position) {
         unfoldedIndexes.remove(position);
+        unfoldedIndexes.clear();
     }
 
     public void registerUnfold(int position) {
@@ -91,10 +97,12 @@ public class FavouriteRecipeListAdapter extends ArrayAdapter<RecipeItemModel> {
     }
 
     public void registerToggle(int position) {
-        if (unfoldedIndexes.contains(position))
+        if (unfoldedIndexes.contains(position)){
             registerFold(position);
-        else
+        }
+        else{
             registerUnfold(position);
+        }
     }
 
     public View.OnClickListener getDefaultRequestBtnClickListener() {
@@ -107,9 +115,11 @@ public class FavouriteRecipeListAdapter extends ArrayAdapter<RecipeItemModel> {
 
     class ViewHolder  {
         private  ImageView image;
-        private  TextView name;
-        private  TextView name2;
-        private  TextView detailsButton;
-
+        private  TextView nameUnfolded;
+        private  TextView nameFolded;
+        private  TextView ingredients;
+        private  TextView cautions;
+        private  TextView totalTime;
+        private  TextView calories;
     }
 }
