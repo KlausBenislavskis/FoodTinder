@@ -33,7 +33,7 @@ public class FavouriteRecipeFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_favourite_recipe_list, container, false);
         RecipeRepository.getInstance().searchRecipe("chicken");
 
-        listView = root.findViewById(R.id.mainListView);
+        listView = root.findViewById(R.id.favouriteRecipeListView);
 
         List<RecipeItemModel> list = map(RecipeRepository.getInstance().getSearchedRecipe().getValue());
         recipeAdapter = new FavouriteRecipeListAdapter(getContext(), list);
