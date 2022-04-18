@@ -45,6 +45,7 @@ public class LoginActivity extends Activity {
                 .requestEmail()
                 .build();
 
+
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
         // [END config_signin]
 
@@ -58,17 +59,19 @@ public class LoginActivity extends Activity {
 
     }
 
-    // [START on_start_check_user]
     @Override
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser != null){
+            Intent MainIntent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(MainIntent);
+        }
         updateUI(currentUser);
-    }
-    // [END on_start_check_user]
 
-    // [START onactivityresult]
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -76,8 +79,13 @@ public class LoginActivity extends Activity {
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
 
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            System.out.println(task.getException());
+            try {
+                Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+                firebaseAuthWithGoogle(task.getResult().getIdToken());
+            }catch (Exception e)
+            {
+                System.out.println(e);
+            }
         }
     }
     // [END onactivityresult]
@@ -93,6 +101,8 @@ public class LoginActivity extends Activity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+                            Intent MainIntent = new Intent(LoginActivity.this, MainActivity.class);
+                            startActivity(MainIntent);
                             updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
@@ -108,6 +118,7 @@ public class LoginActivity extends Activity {
     private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
+
     }
     // [END signin]
 
