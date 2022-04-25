@@ -17,8 +17,6 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
-import com.example.foodtinder.ui.Login_Register.LoginFragment;
-import com.example.foodtinder.ui.Login_Register.LoginViewModel;
 
 import com.example.foodtinder.repositories.RecipeRepository;
 import com.google.android.material.navigation.NavigationView;
@@ -56,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home,R.id.nav_login)
+                R.id.nav_home)
                 .setOpenableLayout(drawerLayout)
                 .build();
 

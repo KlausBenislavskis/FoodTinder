@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "795724123782",
+    "project_id": "foodtinder-e79a3",
+    "storage_bucket": "foodtinder-e79a3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:795724123782:android:7ba75a7e7b95bc7251cb07",
+        "android_client_info": {
+          "package_name": "com.example.foodtinder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "795724123782-00e06kav9bu01v9lt4hjebg1gbfs0o98.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.foodtinder",
+            "certificate_hash": "d9ce4a48fb293faaa9c515cee969246c91c6d3d7"
+          }
+        },
+        {
+          "client_id": "795724123782-e0bq40ul18fj4dp18dinvd8khm60p5s0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAWIOtMcCx9zXMYPPHw8x7msoqiwEcQHPE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "795724123782-e0bq40ul18fj4dp18dinvd8khm60p5s0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
