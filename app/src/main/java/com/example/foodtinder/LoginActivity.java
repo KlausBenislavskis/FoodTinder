@@ -56,7 +56,6 @@ public class LoginActivity extends Activity {
         setContentView(R.layout.login_activity);
         button = findViewById(R.id.button_login_google);
         button.setOnClickListener(v-> signIn());
-
     }
 
     @Override
@@ -82,6 +81,7 @@ public class LoginActivity extends Activity {
             try {
                 Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
                 firebaseAuthWithGoogle(task.getResult().getIdToken());
+
             }catch (Exception e)
             {
                 System.out.println(e);

@@ -1,5 +1,6 @@
 package com.example.foodtinder;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,6 +20,7 @@ import androidx.navigation.ui.NavigationUI;
 
 
 import com.example.foodtinder.repositories.RecipeRepository;
+import com.example.foodtinder.repositories.UserRepository;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -28,6 +30,11 @@ public class MainActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     NavigationView navigationDrawer;
     Toolbar toolbar;
+    Button logout_button;
+    UserRepository userRepository;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,12 +43,22 @@ public class MainActivity extends AppCompatActivity {
         initViews();
         setupNavigation();
         RecipeRepository.getInstance().searchRecipe("chicken");
+
+        logout_button = findViewById(R.id.sign_out);
+        logout_button.setOnClickListener(v-> {signOut();});
     }
 
     private void initViews() {
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationDrawer = findViewById(R.id.navigation_drawer);
         toolbar = findViewById(R.id.toolbar);
+
+    }
+    public void signOut()
+    {
+        userRepository.getInstance().signOut();
+        Intent LoginIntent = new Intent(MainActivity.this, LoginActivity.class);
+        startActivity(LoginIntent);
     }
     public void hideActionBar()
     {
@@ -60,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
 
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navigationDrawer, navController);
+
     }
 
 
