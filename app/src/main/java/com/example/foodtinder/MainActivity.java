@@ -43,9 +43,22 @@ public class MainActivity extends AppCompatActivity {
         initViews();
         setupNavigation();
         RecipeRepository.getInstance().searchRecipe("chicken");
+        userRepository = UserRepository.getInstance(getApplication());
+        checkIfSignedIn();
 
-        logout_button = findViewById(R.id.sign_out);
-        logout_button.setOnClickListener(v-> {signOut();});
+    }
+    private void checkIfSignedIn() {
+        userRepository.getCurrentUser().observe(this, user -> {
+            if (user != null) {
+                String message = "Welcome " + user.getDisplayName();
+            } else
+                startLoginActivity();
+        });
+    }
+
+    private void startLoginActivity() {
+        startActivity(new Intent(this, LoginActivity.class));
+        finish();
     }
 
     private void initViews() {
@@ -56,9 +69,8 @@ public class MainActivity extends AppCompatActivity {
     }
     public void signOut()
     {
-        userRepository.getInstance().signOut();
-        Intent LoginIntent = new Intent(MainActivity.this, LoginActivity.class);
-        startActivity(LoginIntent);
+        userRepository.getInstance(getApplication()).signOut();
+
     }
     public void hideActionBar()
     {

@@ -12,14 +12,16 @@ import com.google.firebase.auth.FirebaseUser;
 public class UserRepository {
     private final UserLiveData currentUser;
     private static UserRepository instance;
+    private final Application app;
 
-    public UserRepository() {
+    public UserRepository(Application app) {
+        this.app = app;
         currentUser = new UserLiveData();
     }
 
-    public static synchronized UserRepository getInstance() {
+    public static synchronized UserRepository getInstance(Application app) {
         if(instance == null)
-            instance = new UserRepository();
+            instance = new UserRepository(app);
         return instance;
     }
 
@@ -27,8 +29,8 @@ public class UserRepository {
         return currentUser;
     }
 
-    @SuppressLint("RestrictedApi")
     public void signOut() {
-        AuthUI.getInstance().signOut(AuthUI.getApplicationContext());
+        AuthUI.getInstance()
+                .signOut(app.getApplicationContext());
     }
 }
