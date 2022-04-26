@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import com.example.foodtinder.MainActivity;
 import com.example.foodtinder.R;
 import com.example.foodtinder.adapters.FriendsListAdapter;
 import com.example.foodtinder.models.RecipeItemModel;
@@ -27,7 +30,8 @@ import java.util.List;
 public class FriendsListFragment extends Fragment {
     RecyclerView friendsList;
     FriendsListAdapter adapter;
-
+    Button addFriendButton;
+    EditText email;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -41,14 +45,18 @@ public class FriendsListFragment extends Fragment {
       adapter = new FriendsListAdapter(friends);
       friendsList.setAdapter(adapter);
       testing(friends);
-
+      addFriendButton = root.findViewById(R.id.addFriendButton);
+      email = root.findViewById(R.id.friendsEmailAddressInputField);
+      addFriendButton.setOnClickListener(v->{
+        ((MainActivity)getActivity()).addFriend(email.getText().toString());
+      });
       return root;
     }
 
     private void testing(ArrayList<UserItemModel> friends) {
         List<RecipeItemModel> recipes = map(RecipeRepository.getInstance().getSearchedRecipe().getValue());
-        friends.add(new UserItemModel("pepe", "password", "email", recipes, null, String.valueOf(R.drawable.ic_arrow_back_black_24dp)));
-        friends.add(new UserItemModel("pepe2", "null", "null", recipes, null, String.valueOf(R.drawable.ic_arrow_back_black_24dp)));
+        friends.add(new UserItemModel("pepe", "email", recipes, null, String.valueOf(R.drawable.ic_arrow_back_black_24dp)));
+        friends.add(new UserItemModel("pepe2", "null", recipes, null, String.valueOf(R.drawable.ic_arrow_back_black_24dp)));
     }
 
 }

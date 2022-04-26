@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DiffUtil;
 
 
+import com.example.foodtinder.MainActivity;
 import com.example.foodtinder.R;
 import com.example.foodtinder.adapters.RecipeAdapter;
 import com.example.foodtinder.callback.RecipeSwipeCallback;
@@ -62,6 +63,7 @@ public class SwipeFragment extends Fragment {
                 Log.d(TAG, "onCardSwiped: p=" + manager.getTopPosition() + " d=" + direction);
                 if (direction == Direction.Right) {
                     Toast.makeText(getContext(), "Direction Right", Toast.LENGTH_SHORT).show();
+
                 }
                 if (direction == Direction.Top) {
                     Toast.makeText(getContext(), "Direction Top", Toast.LENGTH_SHORT).show();
@@ -100,6 +102,7 @@ public class SwipeFragment extends Fragment {
             public void onCardDisappeared(View view, int position) {
                 TextView tv = view.findViewById(R.id.item_name);
                 Log.d(TAG, "onCardAppeared: " + position + ", nama: " + tv.getText());
+                ((MainActivity)getActivity()).addRecipe(new RecipeItemModel(tv.getText().toString()));
             }
         });
         manager.setStackFrom(StackFrom.None);

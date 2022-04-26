@@ -22,8 +22,13 @@ public class RecipeItemModel {
         this.calories = calories;
         this.totalTime = totalTime;
     }
+    public RecipeItemModel(String name) {
+        this.name = name;
+    }
+    public RecipeItemModel() {
+    }
 
-    public ArrayList<Ingredient> getIngredients() {
+        public ArrayList<Ingredient> getIngredients() {
         return ingredients;
     }
 
