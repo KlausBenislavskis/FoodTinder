@@ -4,7 +4,9 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import com.example.foodtinder.models.UserItemModel;
+import com.example.foodtinder.models.UserRecipe;
 import com.firebase.ui.auth.AuthUI;
+import com.firebase.ui.auth.data.model.User;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -13,22 +15,20 @@ import com.google.firebase.database.FirebaseDatabase;
 public class UserRepository {
     private final UserLiveData currentUser;
     private static UserRepository instance;
-    private final Application app;
     FirebaseDatabase database;
     DatabaseReference reference;
     UserItemModel userItemModel;
 
-    public UserRepository(Application app) {
-        this.app = app;
+    public UserRepository() {
         currentUser = new UserLiveData();
         database = FirebaseDatabase.getInstance("https://foodtinder-b3f74-default-rtdb.europe-west1.firebasedatabase.app/");
         reference = database.getReference("users");
 
     }
 
-    public static synchronized UserRepository getInstance(Application app) {
+    public static synchronized UserRepository getInstance() {
         if (instance == null)
-            instance = new UserRepository(app);
+            instance = new UserRepository();
         return instance;
     }
 
@@ -45,17 +45,18 @@ public class UserRepository {
     public LiveData<FirebaseUser> getCurrentUser() {
         return currentUser;
     }
-    public void signOut() {
+
+    public void signOut(Application app) {
         AuthUI.getInstance()
                 .signOut(app.getApplicationContext());
     }
 
-    public void addRecipe(String recipeId) {
+    public void addRecipe(UserRecipe recipe) {
         reference.child(getSafeCurrentUserEmail(currentUser.getValue().getEmail())).get().addOnCompleteListener(v -> {
             if (v.isSuccessful()) {
                 userItemModel = v.getResult().getValue(UserItemModel.class);
                 userItemModel.setFavouriteRecipes(userItemModel.getFavouriteRecipes());
-                userItemModel.getFavouriteRecipes().add(recipeId);
+                userItemModel.getFavouriteRecipes().add(recipe);
                 reference.child(getSafeCurrentUserEmail(userItemModel.getEmail())).setValue(userItemModel);
             }
         });
@@ -86,7 +87,7 @@ public class UserRepository {
 
 
     @NonNull
-    private String getSafeCurrentUserEmail(String email) {
+    public String getSafeCurrentUserEmail(String email) {
         return email.replace('.', '-');
     }
 

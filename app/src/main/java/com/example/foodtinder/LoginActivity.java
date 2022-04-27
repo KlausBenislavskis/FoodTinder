@@ -134,7 +134,7 @@ public class LoginActivity extends Activity {
 
 
             UserItemModel userItemModel = new UserItemModel(user.getDisplayName(), user.getEmail(), new ArrayList<>(), new ArrayList<>(), String.valueOf(R.drawable.ic_arrow_back_black_24dp));
-            UserRepository.getInstance(getApplication()).addUser(userItemModel);
+            UserRepository.getInstance().addUser(userItemModel);
         }
     }
 }

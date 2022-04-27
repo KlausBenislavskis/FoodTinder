@@ -16,6 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DiffUtil;
 
@@ -42,9 +43,11 @@ public class SwipeFragment extends Fragment {
     private static final String TAG = SwipeFragment.class.getSimpleName();
     private CardStackLayoutManager manager;
     private RecipeAdapter adapter;
-
+    private SwipeViewModel viewModel;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+        viewModel = new ViewModelProvider(this).get(SwipeViewModel.class);
+        viewModel.init();
         View root = inflater.inflate(R.layout.fragment_swipe, container, false);
         init(root);
         return root;
@@ -61,20 +64,8 @@ public class SwipeFragment extends Fragment {
             @Override
             public void onCardSwiped(Direction direction) {
                 if (direction == Direction.Right) {
-                    Toast.makeText(getContext(), "Direction Right", Toast.LENGTH_SHORT).show();
-                    Log.d(TAG, "ONCARDSWIPE: p=" +manager.getTopPosition()+ " "+adapter.getItems().get(manager.getTopPosition()-1).getName() + " d=" + direction);
-
+                    viewModel.onCardSwipedRight(adapter.getItems().get(manager.getTopPosition() - 1));
                 }
-                if (direction == Direction.Top) {
-                    Toast.makeText(getContext(), "Direction Top", Toast.LENGTH_SHORT).show();
-                }
-                if (direction == Direction.Left) {
-                    Toast.makeText(getContext(), "Direction Left", Toast.LENGTH_SHORT).show();
-                }
-                if (direction == Direction.Bottom) {
-                    Toast.makeText(getContext(), "Direction Bottom", Toast.LENGTH_SHORT).show();
-                }
-
                 // Paginating
                 if (manager.getTopPosition() == adapter.getItemCount() - 5) {
                     paginate();
@@ -102,7 +93,6 @@ public class SwipeFragment extends Fragment {
             public void onCardDisappeared(View view, int position) {
                 TextView tv = view.findViewById(R.id.item_name);
                 Log.d(TAG, "onCardAppeared: " + position + ", nama: " + tv.getText());
-                ((MainActivity)getActivity()).addRecipe(new RecipeItemModel(tv.getText().toString()));
             }
         });
         manager.setStackFrom(StackFrom.None);

@@ -7,10 +7,10 @@ public class UserItemModel {
     private String username;
     private String email;
     private String image;
-    private List<String> favouriteRecipes;
+    private List<UserRecipe> favouriteRecipes;
     private List<String> friendsList;
 
-    public UserItemModel(String username, String email, List<String> favouriteRecipes, List<String> friendsList, String image) {
+    public UserItemModel(String username, String email, List<UserRecipe> favouriteRecipes, List<String> friendsList, String image) {
         this.username = username;
         this.email = email;
         if(favouriteRecipes != null) {
@@ -38,7 +38,7 @@ public class UserItemModel {
     }
 
 
-    public List<String> getFavouriteRecipes() {
+    public List<UserRecipe> getFavouriteRecipes() {
         return favouriteRecipes;
     }
 
@@ -48,11 +48,11 @@ public class UserItemModel {
     }
 
 
-    public void setFavouriteRecipes(List<String> favouriteRecipes) {
+    public void setFavouriteRecipes(List<UserRecipe> favouriteRecipes) {
         if (favouriteRecipes != null) {
             this.favouriteRecipes = favouriteRecipes;
         } else {
-            this.favouriteRecipes = new ArrayList<String>();
+            this.favouriteRecipes = new ArrayList<>();
         }
     }
 

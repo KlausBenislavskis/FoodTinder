@@ -23,6 +23,7 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.foodtinder.models.RecipeItemModel;
 import com.example.foodtinder.models.UserItemModel;
+import com.example.foodtinder.models.UserRecipe;
 import com.example.foodtinder.repositories.RecipeRepository;
 import com.example.foodtinder.repositories.UserRepository;
 import com.google.android.material.navigation.NavigationView;
@@ -53,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         initViews();
         setupNavigation();
         RecipeRepository.getInstance().searchRecipe("chicken");
-        userRepository = UserRepository.getInstance(getApplication());
+        userRepository = UserRepository.getInstance();
         checkIfSignedIn();
 
 
@@ -77,11 +78,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void addFriend(String email)
     {
-        userRepository.getInstance(getApplication()).addFriend(email);
+        UserRepository.getInstance().addFriend(email);
     }
     public void addRecipe(RecipeItemModel itemModel)
     {
-        userRepository.getInstance(getApplication()).addRecipe(itemModel.getId());
+        UserRepository.getInstance().addRecipe(new UserRecipe(itemModel.getName(), itemModel.getId()));
     }
 
     private void initViews() {
@@ -92,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
     }
     public void signOut()
     {
-        userRepository.getInstance(getApplication()).signOut();
+        UserRepository.getInstance().signOut(getApplication());
 
     }
     public void hideActionBar()
