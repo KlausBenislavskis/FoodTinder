@@ -29,7 +29,7 @@ public class SwipeViewModel extends AndroidViewModel {
     public void onCardSwipedRight(RecipeItemModel recipeItemModel) {
         userRecipeRepository.saveRecipe(new UserRecipe(recipeItemModel.getName(), recipeItemModel.getId()));
     }
-    public UserRecipeLiveData getMessage() {
+    public UserRecipeLiveData getRecipes() {
         return userRecipeRepository.getRecipes();
     }
 }

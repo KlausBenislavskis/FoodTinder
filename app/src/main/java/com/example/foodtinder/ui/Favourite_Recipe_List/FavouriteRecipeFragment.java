@@ -13,11 +13,13 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.foodtinder.R;
 import com.example.foodtinder.adapters.FavouriteRecipeListAdapter;
 import com.example.foodtinder.models.RecipeItemModel;
 import com.example.foodtinder.repositories.RecipeRepository;
+import com.example.foodtinder.ui.Swipe.SwipeViewModel;
 import com.ramotion.foldingcell.FoldingCell;
 
 import java.util.List;
@@ -26,10 +28,15 @@ public class FavouriteRecipeFragment extends Fragment {
 
     ListView listView;
     FavouriteRecipeListAdapter recipeAdapter;
-
+    private FavouriteRecipeViewModel viewModel;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        viewModel = new ViewModelProvider(this).get(FavouriteRecipeViewModel.class);
+        viewModel.init();
+        viewModel.getRecipes().observe(getViewLifecycleOwner(), userRecipes -> {
+            //Have to do so liveData listeners are registered
+        });
         View root = inflater.inflate(R.layout.fragment_favourite_recipe_list, container, false);
         RecipeRepository.getInstance().searchRecipe("chicken");
 

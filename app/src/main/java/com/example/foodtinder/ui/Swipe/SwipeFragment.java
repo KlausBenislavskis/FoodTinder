@@ -10,23 +10,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.LinearInterpolator;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.DiffUtil;
 
 
-import com.example.foodtinder.MainActivity;
 import com.example.foodtinder.R;
 import com.example.foodtinder.adapters.RecipeAdapter;
 import com.example.foodtinder.callback.RecipeSwipeCallback;
 import com.example.foodtinder.models.RecipeItemModel;
-import com.example.foodtinder.models.api.Hit;
 import com.example.foodtinder.repositories.RecipeRepository;
 import com.yuyakaido.android.cardstackview.CardStackLayoutManager;
 import com.yuyakaido.android.cardstackview.CardStackListener;
@@ -51,7 +46,7 @@ public class SwipeFragment extends Fragment {
         viewModel.init();
         View root = inflater.inflate(R.layout.fragment_swipe, container, false);
         init(root);
-        viewModel.getMessage().observe(getViewLifecycleOwner(),userRecipes -> {
+        viewModel.getRecipes().observe(getViewLifecycleOwner(), userRecipes -> {
             //Have to do so liveData listeners are registered
         });
         return root;
