@@ -60,9 +60,9 @@ public class SwipeFragment extends Fragment {
 
             @Override
             public void onCardSwiped(Direction direction) {
-                Log.d(TAG, "onCardSwiped: p=" + manager.getTopPosition() + " d=" + direction);
                 if (direction == Direction.Right) {
                     Toast.makeText(getContext(), "Direction Right", Toast.LENGTH_SHORT).show();
+                    Log.d(TAG, "ONCARDSWIPE: p=" +manager.getTopPosition()+ " "+adapter.getItems().get(manager.getTopPosition()-1).getName() + " d=" + direction);
 
                 }
                 if (direction == Direction.Top) {
