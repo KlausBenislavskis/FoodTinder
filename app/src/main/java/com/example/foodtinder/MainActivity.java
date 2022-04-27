@@ -1,5 +1,8 @@
 package com.example.foodtinder;
 
+import static com.example.foodtinder.mappers.ApiToModel.map;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,8 +21,16 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 
+import com.example.foodtinder.models.RecipeItemModel;
+import com.example.foodtinder.models.UserItemModel;
 import com.example.foodtinder.repositories.RecipeRepository;
+import com.example.foodtinder.repositories.UserRepository;
 import com.google.android.material.navigation.NavigationView;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,6 +39,12 @@ public class MainActivity extends AppCompatActivity {
     DrawerLayout drawerLayout;
     NavigationView navigationDrawer;
     Toolbar toolbar;
+    Button logout_button;
+    UserRepository userRepository;
+    UserItemModel userItemModel;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,12 +53,47 @@ public class MainActivity extends AppCompatActivity {
         initViews();
         setupNavigation();
         RecipeRepository.getInstance().searchRecipe("chicken");
+        userRepository = UserRepository.getInstance(getApplication());
+        checkIfSignedIn();
+
+
+    }
+    private void checkIfSignedIn() {
+        userRepository.getCurrentUser().observe(this, user -> {
+            if (user != null) {
+                String message = "Welcome " + user.getDisplayName();
+            } else
+                startLoginActivity();
+        });
+    }
+
+    private void startLoginActivity() {
+
+        startActivity(new Intent(this, LoginActivity.class));
+        finish();
+
+    }
+
+
+    public void addFriend(String email)
+    {
+        userRepository.getInstance(getApplication()).addFriend(email);
+    }
+    public void addRecipe(RecipeItemModel itemModel)
+    {
+        userRepository.getInstance(getApplication()).addRecipe(itemModel);
     }
 
     private void initViews() {
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationDrawer = findViewById(R.id.navigation_drawer);
         toolbar = findViewById(R.id.toolbar);
+
+    }
+    public void signOut()
+    {
+        userRepository.getInstance(getApplication()).signOut();
+
     }
     public void hideActionBar()
     {
@@ -60,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
 
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navigationDrawer, navController);
+
     }
 
 

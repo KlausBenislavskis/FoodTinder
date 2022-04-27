@@ -1,5 +1,10 @@
 package com.example.foodtinder.models;
 
+import com.google.gson.JsonObject;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,15 +16,18 @@ public class UserItemModel {
     private List<RecipeItemModel> favouriteRecipes;
     private List<UserItemModel> friendsList;
 
-    public UserItemModel(String username, String password, String email, List<RecipeItemModel> favouriteRecipes, List<UserItemModel> friendsList, String image) {
+    public UserItemModel(String username, String email, List<RecipeItemModel> favouriteRecipes, List<UserItemModel> friendsList, String image) {
         this.username = username;
-        this.password = password;
         this.email = email;
         this.favouriteRecipes = favouriteRecipes;
         this.friendsList = friendsList;
         this.image = image;
     }
 
+    public UserItemModel()
+    {
+
+    }
     public String getUsername() {
         return username;
     }
@@ -42,5 +50,23 @@ public class UserItemModel {
 
     public String getImage() {
         return image;
+    }
+
+
+    public void setFavouriteRecipes(List<RecipeItemModel> favouriteRecipes) {
+        if(favouriteRecipes != null) {
+            this.favouriteRecipes = favouriteRecipes;
+        }else{
+            this.favouriteRecipes= new ArrayList<RecipeItemModel>();
+        }
+    }
+
+    public void setFriendsList(List<UserItemModel> friendsList) {
+        if(friendsList != null) {
+            this.friendsList = friendsList;
+        }else{
+            this.friendsList = new ArrayList<UserItemModel>();
+        }
+
     }
 }
