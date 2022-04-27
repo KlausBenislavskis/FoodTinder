@@ -55,7 +55,6 @@ public class FriendsListAdapter extends RecyclerView.Adapter<FriendsListAdapter.
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         final boolean isExpanded = position == mExpandedPosition;
         UserItemModel item = friends.get(position);
-        List<RecipeItemModel> recipeList = item.getFavouriteRecipes();
         holder.name.setText(friends.get(position).getUsername());
         Picasso.get()
                 .load(item.getImage())

@@ -13,9 +13,18 @@ public class ApiToModel {
         for (Hit recipeItem : recipeItems) {
             RecipeItemModel recipeItemModel = new RecipeItemModel(recipeItem.recipe.label,
                     recipeItem.recipe.image,
-                    recipeItem.recipe.url, recipeItem.recipe.ingredients, recipeItem.recipe.cautions, recipeItem.recipe.calories, recipeItem.recipe.totalTime);
+                    recipeItem.recipe.url,
+                    recipeItem.recipe.ingredients,
+                    recipeItem.recipe.cautions,
+                    recipeItem.recipe.calories,
+                    recipeItem.recipe.totalTime,
+                    getIdFromUri(recipeItem.recipe.uri));
             recipeItemModels.add(recipeItemModel);
         }
         return recipeItemModels;
+    }
+
+    private static String getIdFromUri(String uri) {
+        return uri.split("#")[uri.split("#").length - 1];
     }
 }

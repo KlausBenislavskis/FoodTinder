@@ -131,10 +131,9 @@ public class LoginActivity extends Activity {
 
     private void updateUI(FirebaseUser user) {
         if(user != null) {
-            List<RecipeItemModel> recipeList = new ArrayList<>();
-            List<UserItemModel> friendsList = new ArrayList<>();
 
-            UserItemModel userItemModel = new UserItemModel(user.getDisplayName(), user.getEmail(), recipeList, friendsList, String.valueOf(R.drawable.ic_arrow_back_black_24dp));
+
+            UserItemModel userItemModel = new UserItemModel(user.getDisplayName(), user.getEmail(), new ArrayList<>(), new ArrayList<>(), String.valueOf(R.drawable.ic_arrow_back_black_24dp));
             UserRepository.getInstance(getApplication()).addUser(userItemModel);
         }
     }

@@ -44,7 +44,6 @@ public class FriendsListFragment extends Fragment {
       ArrayList<UserItemModel> friends = new ArrayList<>();
       adapter = new FriendsListAdapter(friends);
       friendsList.setAdapter(adapter);
-      testing(friends);
       addFriendButton = root.findViewById(R.id.addFriendButton);
       email = root.findViewById(R.id.friendsEmailAddressInputField);
       addFriendButton.setOnClickListener(v->{
@@ -53,10 +52,5 @@ public class FriendsListFragment extends Fragment {
       return root;
     }
 
-    private void testing(ArrayList<UserItemModel> friends) {
-        List<RecipeItemModel> recipes = map(RecipeRepository.getInstance().getSearchedRecipe().getValue());
-        friends.add(new UserItemModel("pepe", "email", recipes, null, String.valueOf(R.drawable.ic_arrow_back_black_24dp)));
-        friends.add(new UserItemModel("pepe2", "null", recipes, null, String.valueOf(R.drawable.ic_arrow_back_black_24dp)));
-    }
 
 }

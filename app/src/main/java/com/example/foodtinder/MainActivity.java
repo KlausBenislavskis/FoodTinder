@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
     }
     public void addRecipe(RecipeItemModel itemModel)
     {
-        userRepository.getInstance(getApplication()).addRecipe(itemModel);
+        userRepository.getInstance(getApplication()).addRecipe(itemModel.getId());
     }
 
     private void initViews() {

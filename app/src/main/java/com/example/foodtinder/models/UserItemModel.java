@@ -1,72 +1,66 @@
 package com.example.foodtinder.models;
 
-import com.google.gson.JsonObject;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserItemModel {
     private String username;
-    private String password;
     private String email;
     private String image;
-    private List<RecipeItemModel> favouriteRecipes;
-    private List<UserItemModel> friendsList;
+    private List<String> favouriteRecipes;
+    private List<String> friendsList;
 
-    public UserItemModel(String username, String email, List<RecipeItemModel> favouriteRecipes, List<UserItemModel> friendsList, String image) {
+    public UserItemModel(String username, String email, List<String> favouriteRecipes, List<String> friendsList, String image) {
         this.username = username;
         this.email = email;
-        this.favouriteRecipes = favouriteRecipes;
-        this.friendsList = friendsList;
+        if(favouriteRecipes != null) {
+            this.favouriteRecipes = favouriteRecipes;
+        }
+        else this.favouriteRecipes = new ArrayList<>();
+        if(friendsList != null){
+            this.friendsList = friendsList;}
+        else this.friendsList = new ArrayList<>();
         this.image = image;
     }
 
-    public UserItemModel()
-    {
-
+    public UserItemModel() {
+        this.favouriteRecipes = new ArrayList<>();
+        this.friendsList = new ArrayList<>();
     }
+
     public String getUsername() {
         return username;
     }
 
-    public String getPassword() {
-        return password;
-    }
 
     public String getEmail() {
         return email;
     }
 
-    public List<RecipeItemModel> getFavouriteRecipes() {
+
+    public List<String> getFavouriteRecipes() {
         return favouriteRecipes;
     }
 
-    public List<UserItemModel> getFriendsList() {
-        return friendsList;
-    }
 
     public String getImage() {
         return image;
     }
 
 
-    public void setFavouriteRecipes(List<RecipeItemModel> favouriteRecipes) {
-        if(favouriteRecipes != null) {
+    public void setFavouriteRecipes(List<String> favouriteRecipes) {
+        if (favouriteRecipes != null) {
             this.favouriteRecipes = favouriteRecipes;
-        }else{
-            this.favouriteRecipes= new ArrayList<RecipeItemModel>();
+        } else {
+            this.favouriteRecipes = new ArrayList<String>();
         }
     }
 
-    public void setFriendsList(List<UserItemModel> friendsList) {
-        if(friendsList != null) {
-            this.friendsList = friendsList;
-        }else{
-            this.friendsList = new ArrayList<UserItemModel>();
-        }
+    public List<String> getFriendsList() {
+        return friendsList;
+    }
 
+    public void setFriendsList(List<String> friendsList) {
+        this.friendsList = friendsList;
     }
 }
