@@ -26,7 +26,7 @@ public class UserRecipeRepository {
     }
 
     public void init() {
-        reference = getUserRecipeDbReference(FirebaseDatabase.getInstance().getReference());
+        reference =getUserRecipeDbReference(FirebaseDatabase.getInstance("https://foodtinder-b3f74-default-rtdb.europe-west1.firebasedatabase.app/").getReference("users"));
         recipes = new UserRecipeLiveData(reference);
     }
 
@@ -38,6 +38,7 @@ public class UserRecipeRepository {
         recipesList.add(recipe);
         reference.setValue(recipesList);
     }
+
     public UserRecipeLiveData getRecipes() {
         return recipes;
     }

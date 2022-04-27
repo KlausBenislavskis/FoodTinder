@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 
 import com.example.foodtinder.models.UserRecipe;
-import com.example.foodtinder.repositories.UserRepository;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -17,7 +16,10 @@ public class UserRecipeLiveData extends LiveData<ArrayList<UserRecipe>> {
 
         @Override
         public void onDataChange(@NonNull DataSnapshot snapshot) {
-            ArrayList<UserRecipe> recipes = snapshot.getValue(ArrayList.class);
+//            Map<String, UserRecipe> UserRecipeHashMap = snapshot.getValue(UserRecipesGTypeInd);
+//            ArrayList<UserRecipe> recipes = new ArrayList<UserRecipe>(UserRecipeHashMap.values());
+//            setValue(recipes);
+            ArrayList<UserRecipe> recipes = (ArrayList<UserRecipe>) snapshot.getValue();
             setValue(recipes);
         }
 

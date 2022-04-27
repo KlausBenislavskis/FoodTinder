@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.foodtinder.models.RecipeItemModel;
 import com.example.foodtinder.models.UserRecipe;
+import com.example.foodtinder.repositories.userRecipe.UserRecipeLiveData;
 import com.example.foodtinder.repositories.userRecipe.UserRecipeRepository;
 import com.yuyakaido.android.cardstackview.Direction;
 
@@ -27,5 +28,8 @@ public class SwipeViewModel extends AndroidViewModel {
 
     public void onCardSwipedRight(RecipeItemModel recipeItemModel) {
         userRecipeRepository.saveRecipe(new UserRecipe(recipeItemModel.getName(), recipeItemModel.getId()));
+    }
+    public UserRecipeLiveData getMessage() {
+        return userRecipeRepository.getRecipes();
     }
 }

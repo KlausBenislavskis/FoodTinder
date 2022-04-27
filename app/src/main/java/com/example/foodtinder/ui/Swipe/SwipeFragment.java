@@ -44,12 +44,16 @@ public class SwipeFragment extends Fragment {
     private CardStackLayoutManager manager;
     private RecipeAdapter adapter;
     private SwipeViewModel viewModel;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         viewModel = new ViewModelProvider(this).get(SwipeViewModel.class);
         viewModel.init();
         View root = inflater.inflate(R.layout.fragment_swipe, container, false);
         init(root);
+        viewModel.getMessage().observe(getViewLifecycleOwner(),userRecipes -> {
+            //Have to do so liveData listeners are registered
+        });
         return root;
     }
 
