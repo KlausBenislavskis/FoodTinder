@@ -34,6 +34,7 @@ public class UserRepository {
 
 
     public void addUser(UserItemModel userItemModel) {
+        System.out.println("lol");
         reference.child(getSafeCurrentUserEmail(userItemModel.getEmail())).get().addOnCompleteListener(v -> {
                     if (v.getResult().getValue() == null) {
                         reference.child(getSafeCurrentUserEmail(userItemModel.getEmail())).setValue(userItemModel);
