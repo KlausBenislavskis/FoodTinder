@@ -30,7 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FriendsListAdapter extends RecyclerView.Adapter<FriendsListAdapter.ViewHolder> {
-    List<UserItemModel> friends;
+    List<String> friends;
     private OnClickListener listener;
     int previousExpandedPosition = -1;
     int mExpandedPosition = -1;
@@ -39,10 +39,15 @@ public class FriendsListAdapter extends RecyclerView.Adapter<FriendsListAdapter.
         this.listener = listener;
     }
 
-    public FriendsListAdapter(List<UserItemModel> friends) {
+    public FriendsListAdapter(List<String> friends) {
         this.friends = friends;
     }
-
+    @SuppressLint("NotifyDataSetChanged")
+    public void set(List<String> friends)
+    {
+        this.friends = friends;
+        notifyDataSetChanged();
+    }
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -54,13 +59,9 @@ public class FriendsListAdapter extends RecyclerView.Adapter<FriendsListAdapter.
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         final boolean isExpanded = position == mExpandedPosition;
-        UserItemModel item = friends.get(position);
-        holder.name.setText(friends.get(position).getUsername());
-        Picasso.get()
-                .load(item.getImage())
-                .fit()
-                .centerCrop()
-                .into(holder.image);
+        String item = friends.get(position);
+        holder.name.setText(friends.get(position).toString());
+
         holder.dropDownMenu.setVisibility(isExpanded?View.VISIBLE:View.GONE);
         holder.shareButton.setVisibility(isExpanded?View.VISIBLE:View.GONE);
         holder.friendsFavouriteRecipesButton.setVisibility(isExpanded?View.VISIBLE:View.GONE);
@@ -105,7 +106,7 @@ public class FriendsListAdapter extends RecyclerView.Adapter<FriendsListAdapter.
             shareButton = itemView.findViewById(R.id.share_button);
             friendsFavouriteRecipesButton = itemView.findViewById(R.id.friendsRecipesListButton);
             itemView.setOnClickListener(v ->{
-                listener.onClick(friends.get(getBindingAdapterPosition()));
+                System.out.println("clicked");
             });
         }
     }

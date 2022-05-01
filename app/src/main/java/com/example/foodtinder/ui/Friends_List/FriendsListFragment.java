@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -40,26 +41,35 @@ public class FriendsListFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-      viewModel = new ViewModelProvider(this).get(FriendsListViewModel.class);
-      viewModel.init();
-      View root = inflater.inflate(R.layout.fragment_friends_list, container, false);
-
-      friendsList = root.findViewById(R.id.friendsListView);
-      friendsList.hasFixedSize();
-      friendsList.setLayoutManager(new LinearLayoutManager(getContext()));
-      ArrayList<UserItemModel> friends = new ArrayList<>();
-      adapter = new FriendsListAdapter(friends);
-      friendsList.setAdapter(adapter);
-      viewModel.getFriends().observe(getViewLifecycleOwner(), userItemModels -> {
-            //Have to do so liveData listeners are registered
-        });
-      addFriendButton = root.findViewById(R.id.addFriendButton);
-      email = root.findViewById(R.id.friendsEmailAddressInputField);
-      addFriendButton.setOnClickListener(v->{
-          viewModel.onAddFriend(email.getText().toString());
-      });
-      return root;
+      return inflater.inflate(R.layout.fragment_friends_list, container, false);
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
+        viewModel = new ViewModelProvider(this).get(FriendsListViewModel.class);
+        viewModel.init();
+
+        friendsList = view.findViewById(R.id.friendsListView);
+        friendsList.hasFixedSize();
+        friendsList.setLayoutManager(new LinearLayoutManager(getContext()));
+        ArrayList<String> friends = new ArrayList<>();
+        adapter = new FriendsListAdapter(friends);
+        friendsList.setAdapter(adapter);
+        viewModel.getFriends().observe(getViewLifecycleOwner(), userItemModels -> {
+            adapter.set(userItemModels);
+        });
+        addFriendButton = view.findViewById(R.id.addFriendButton);
+        email = view.findViewById(R.id.friendsEmailAddressInputField);
+        addFriendButton.setOnClickListener(v->{
+            if(!friends.contains(email.getText())) {
+                viewModel.onAddFriend(email.getText().toString());
+            }
+            else{
+                Toast toast = Toast.makeText(getContext(), "User already in friend list", Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        });
+    }
 }
