@@ -2,11 +2,7 @@ package com.example.foodtinder.repositories.userFriends;
 
 import androidx.annotation.NonNull;
 
-import com.example.foodtinder.models.UserItemModel;
-import com.example.foodtinder.models.UserRecipe;
-import com.example.foodtinder.repositories.UserRepository;
-import com.example.foodtinder.repositories.userRecipe.UserRecipeLiveData;
-import com.example.foodtinder.repositories.userRecipe.UserRecipeRepository;
+import com.example.foodtinder.repositories.userCurrent.CurrentUserRepository;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -50,7 +46,7 @@ public class UserFriendRepository {
                 .child("friendsList");
     }
     private String getCurrentUserSafeEmail() {
-        UserRepository userRepository = UserRepository.getInstance();
-        return userRepository.getSafeCurrentUserEmail(userRepository.getCurrentUser().getValue().getEmail());
+        CurrentUserRepository currentUserRepository = CurrentUserRepository.getInstance();
+        return currentUserRepository.getSafeCurrentUserEmail(currentUserRepository.getCurrentUser().getValue().getEmail());
     }
 }

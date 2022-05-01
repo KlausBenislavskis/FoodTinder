@@ -8,14 +8,12 @@ import android.widget.Button;
 
 import androidx.annotation.NonNull;
 
-import com.example.foodtinder.models.RecipeItemModel;
 import com.example.foodtinder.models.UserItemModel;
-import com.example.foodtinder.repositories.UserRepository;
+import com.example.foodtinder.repositories.userCurrent.CurrentUserRepository;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
@@ -25,7 +23,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Demonstrate Firebase Authentication using a Google ID Token.
@@ -131,10 +128,8 @@ public class LoginActivity extends Activity {
 
     private void updateUI(FirebaseUser user) {
         if(user != null) {
-
-
             UserItemModel userItemModel = new UserItemModel(user.getDisplayName(), user.getEmail(), new ArrayList<>(), new ArrayList<>(), String.valueOf(R.drawable.ic_arrow_back_black_24dp));
-            UserRepository.getInstance().addUser(userItemModel);
+            CurrentUserRepository.getInstance().addUser(userItemModel);
         }
     }
 }

@@ -1,10 +1,7 @@
 package com.example.foodtinder;
 
-import static com.example.foodtinder.mappers.ApiToModel.map;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -13,8 +10,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.FragmentManager;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -25,13 +20,10 @@ import com.example.foodtinder.models.RecipeItemModel;
 import com.example.foodtinder.models.UserItemModel;
 import com.example.foodtinder.models.UserRecipe;
 import com.example.foodtinder.repositories.RecipeRepository;
-import com.example.foodtinder.repositories.UserRepository;
+import com.example.foodtinder.repositories.userCurrent.CurrentUserRepository;
+import com.example.foodtinder.repositories.userFriends.UserFriendRepository;
+import com.example.foodtinder.repositories.userRecipe.UserRecipeRepository;
 import com.google.android.material.navigation.NavigationView;
-
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -41,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
     NavigationView navigationDrawer;
     Toolbar toolbar;
     Button logout_button;
-    UserRepository userRepository;
+    CurrentUserRepository currentUserRepository;
     UserItemModel userItemModel;
 
 
@@ -54,13 +46,13 @@ public class MainActivity extends AppCompatActivity {
         initViews();
         setupNavigation();
         RecipeRepository.getInstance().searchRecipe("chicken");
-        userRepository = UserRepository.getInstance();
+        currentUserRepository = CurrentUserRepository.getInstance();
         checkIfSignedIn();
 
 
     }
     private void checkIfSignedIn() {
-        userRepository.getCurrentUser().observe(this, user -> {
+        currentUserRepository.getCurrentUser().observe(this, user -> {
             if (user != null) {
                 String message = "Welcome " + user.getDisplayName();
             } else
@@ -78,11 +70,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void addFriend(String email)
     {
-        UserRepository.getInstance().addFriend(email);
+        UserFriendRepository.getInstance().addFriend(email);
     }
     public void addRecipe(RecipeItemModel itemModel)
     {
-        UserRepository.getInstance().addRecipe(new UserRecipe(itemModel.getName(), itemModel.getId()));
+        UserRecipeRepository.getInstance().saveRecipe(new UserRecipe(itemModel.getName(), itemModel.getId()));
     }
 
     private void initViews() {
@@ -93,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
     }
     public void signOut()
     {
-        UserRepository.getInstance().signOut(getApplication());
+        CurrentUserRepository.getInstance().signOut(getApplication());
 
     }
     public void hideActionBar()

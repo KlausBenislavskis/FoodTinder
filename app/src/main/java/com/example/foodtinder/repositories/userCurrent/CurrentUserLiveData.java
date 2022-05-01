@@ -1,14 +1,12 @@
-package com.example.foodtinder.repositories;
-
+package com.example.foodtinder.repositories.userCurrent;
 
 import androidx.lifecycle.LiveData;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class UserLiveData extends LiveData<FirebaseUser> {
+public class CurrentUserLiveData extends LiveData<FirebaseUser> {
     private final FirebaseAuth.AuthStateListener listener = firebaseAuth -> setValue(firebaseAuth.getCurrentUser());
-
 
     @Override
     protected void onActive() {

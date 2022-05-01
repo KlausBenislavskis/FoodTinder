@@ -1,7 +1,6 @@
 package com.example.foodtinder.ui.Home;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -13,7 +12,6 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.foodtinder.MainActivity;
 import com.example.foodtinder.R;
 import com.example.foodtinder.databinding.FragmentHomeBinding;
-import com.example.foodtinder.repositories.UserRepository;
 
 
 public class HomeFragment extends Fragment {

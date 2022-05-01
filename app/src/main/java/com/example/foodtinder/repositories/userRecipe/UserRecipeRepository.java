@@ -3,8 +3,7 @@ package com.example.foodtinder.repositories.userRecipe;
 import androidx.annotation.NonNull;
 
 import com.example.foodtinder.models.UserRecipe;
-import com.example.foodtinder.repositories.UserRepository;
-import com.firebase.ui.auth.data.model.User;
+import com.example.foodtinder.repositories.userCurrent.CurrentUserRepository;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -51,7 +50,7 @@ public class UserRecipeRepository {
     }
 
     private String getCurrentUserSafeEmail() {
-        UserRepository userRepository = UserRepository.getInstance();
-        return userRepository.getSafeCurrentUserEmail(userRepository.getCurrentUser().getValue().getEmail());
+        CurrentUserRepository currentUserRepository = CurrentUserRepository.getInstance();
+        return currentUserRepository.getSafeCurrentUserEmail(currentUserRepository.getCurrentUser().getValue().getEmail());
     }
 }
