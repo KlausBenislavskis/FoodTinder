@@ -46,7 +46,14 @@ public class FavouriteRecipeFragment extends Fragment {
         viewModel.getRecipes().observe(getViewLifecycleOwner(), userRecipes -> {
             //Have to do so liveData listeners are registered
         });
+        recipeAdapter.setOnClickListener(userrecepie -> {
+            System.out.println(userrecepie.getId());
+        });
 
         return root;
+    }
+    public FavouriteRecipeFragment()
+    {
+
     }
 }

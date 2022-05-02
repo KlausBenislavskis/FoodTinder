@@ -13,6 +13,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodtinder.R;
+import com.example.foodtinder.callback.RecipeClickCallBack;
 import com.example.foodtinder.models.UserRecipe;
 import com.example.foodtinder.ui.Recipe_Details.RecipeDetailsFragment;
 
@@ -20,11 +21,11 @@ import java.util.List;
 
 public class FavouriteRecipeListAdapter extends RecyclerView.Adapter<FavouriteRecipeListAdapter.ViewHolder> {
     private List<UserRecipe> recipes;
-    private OnClickListenerRecipe listener;
+    private RecipeClickCallBack callBack;
     private Context context;
 
-    public void setOnClickListener(OnClickListenerRecipe listener) {
-        this.listener = listener;
+    public void setOnClickListener(RecipeClickCallBack listener) {
+        this.callBack = listener;
     }
 
     public FavouriteRecipeListAdapter(Context context, List<UserRecipe> recipeItemModelList) {
@@ -47,9 +48,7 @@ public class FavouriteRecipeListAdapter extends RecyclerView.Adapter<FavouriteRe
         holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, RecipeDetailsFragment.class);
-                intent.putExtra("id", recipes.get(position).getId());
-                context.startActivity(intent);
+                callBack.onClick(recipes.get(holder.getBindingAdapterPosition()));
             }
         });
     }
@@ -74,8 +73,5 @@ public class FavouriteRecipeListAdapter extends RecyclerView.Adapter<FavouriteRe
         }
     }
 
-    public interface OnClickListenerRecipe {
-        void OnClickRecipe(UserRecipe recipe);
-    }
 }
 
