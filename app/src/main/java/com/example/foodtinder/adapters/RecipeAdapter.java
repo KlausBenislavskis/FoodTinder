@@ -7,12 +7,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodtinder.R;
+import com.example.foodtinder.callback.RecipeSwipeCallback;
 import com.example.foodtinder.models.RecipeItemModel;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder> {
@@ -73,8 +76,14 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         return recipeItemModelList;
     }
 
-    public void setItems(List<RecipeItemModel> items) {
-        this.recipeItemModelList = items;
+    public void addRecipes(List<RecipeItemModel> items) {
+        List<RecipeItemModel> old = getItems();
+        List<RecipeItemModel> newList = new ArrayList<>(items);
+        RecipeSwipeCallback callback = new RecipeSwipeCallback(old, newList);
+        DiffUtil.DiffResult results = DiffUtil.calculateDiff(callback);
+        recipeItemModelList = newList;
+        results.dispatchUpdatesTo(this);
+
     }
 
     public interface OnClickListener{

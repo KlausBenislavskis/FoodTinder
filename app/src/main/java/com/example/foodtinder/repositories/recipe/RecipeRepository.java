@@ -1,4 +1,4 @@
-package com.example.foodtinder.repositories;
+package com.example.foodtinder.repositories.recipe;
 
 import androidx.lifecycle.MutableLiveData;
 
@@ -33,6 +33,7 @@ public class RecipeRepository {
 
     public void searchRecipe(String query) {
         Call<RecipeResponse> call = ServiceGenerator.getRecipeAPI().getRecipes("public", "true", query, Config.app_id, Config.app_key);
+
         call.enqueue(new retrofit2.Callback<RecipeResponse>() {
             @EverythingIsNonNull
             @Override

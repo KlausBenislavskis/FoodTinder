@@ -19,7 +19,7 @@ import androidx.navigation.ui.NavigationUI;
 import com.example.foodtinder.models.RecipeItemModel;
 import com.example.foodtinder.models.UserItemModel;
 import com.example.foodtinder.models.UserRecipe;
-import com.example.foodtinder.repositories.RecipeRepository;
+import com.example.foodtinder.repositories.recipe.RecipeRepository;
 import com.example.foodtinder.repositories.userCurrent.CurrentUserRepository;
 import com.example.foodtinder.repositories.userFriends.UserFriendRepository;
 import com.example.foodtinder.repositories.userRecipe.UserRecipeRepository;
@@ -45,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         initViews();
         setupNavigation();
-        RecipeRepository.getInstance().searchRecipe("chicken");
         currentUserRepository = CurrentUserRepository.getInstance();
         checkIfSignedIn();
 
