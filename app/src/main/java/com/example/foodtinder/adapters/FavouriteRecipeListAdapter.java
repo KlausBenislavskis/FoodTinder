@@ -53,11 +53,6 @@ public class FavouriteRecipeListAdapter extends RecyclerView.Adapter<FavouriteRe
             }
         });
     }
-    public void set(List<UserRecipe> userRecipe)
-    {
-        this.recipes = userRecipe;
-    }
-
     @Override
     public int getItemCount() {
         return recipes.size();

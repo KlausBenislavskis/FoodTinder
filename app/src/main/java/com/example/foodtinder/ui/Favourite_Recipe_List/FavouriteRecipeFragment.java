@@ -51,13 +51,10 @@ public class FavouriteRecipeFragment extends Fragment {
         recipeList.setLayoutManager(new LinearLayoutManager(getContext()));
         //Temporary
         recipeAdapter = new FavouriteRecipeListAdapter(getContext(), new ArrayList<>());
-        viewModel.getRecipes().observe(getViewLifecycleOwner(), userRecipes -> {
-            recipeAdapter.setRecipes(userRecipes);
-            recipeAdapter.set(userRecipes);
-        });
+
         if(getArguments() == null) {
             viewModel.getRecipes().observe(getViewLifecycleOwner(), userRecipes -> {
-                recipeAdapter.set(userRecipes);
+                recipeAdapter.setRecipes(userRecipes);
             });
         }else {
             viewModel.getRecipes().observe(getViewLifecycleOwner(), userRecipes -> {
