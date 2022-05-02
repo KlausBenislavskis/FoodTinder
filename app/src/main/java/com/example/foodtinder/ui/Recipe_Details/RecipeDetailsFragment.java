@@ -15,6 +15,11 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.foodtinder.R;
+import com.example.foodtinder.models.RecipeItemModel;
+import com.example.foodtinder.models.api.Ingredient;
+import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 
 
 public class RecipeDetailsFragment extends Fragment {
@@ -40,6 +45,22 @@ public class RecipeDetailsFragment extends Fragment {
         cautions = root.findViewById(R.id.recipe_cautions);
         totalTime = root.findViewById(R.id.recipe_totalTime);
 
+        RecipeItemModel recipeItemModel = viewModel.getRecipeDetails();
+        System.out.println(recipeItemModel.getName());
+        title.setText(recipeItemModel.getName());
+        Picasso.get()
+                .load(recipeItemModel.getImage())
+                .fit()
+                .centerCrop()
+                .into(image);
+        String ing = "";
+        for(Ingredient item: recipeItemModel.getIngredients()){
+            ing += item + "\n";
+        }
+        ingredients.setText(ing);
+        calories.setText(String.valueOf(recipeItemModel.getCalories()));
+        cautions.setText((CharSequence) recipeItemModel.getCautions());
+        totalTime.setText(recipeItemModel.getTotalTime());
         return root;
     }
 }

@@ -8,10 +8,13 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.foodtinder.MainActivity;
 import com.example.foodtinder.R;
 import com.example.foodtinder.adapters.FavouriteRecipeListAdapter;
 import com.example.foodtinder.models.UserRecipe;
@@ -46,8 +49,10 @@ public class FavouriteRecipeFragment extends Fragment {
         viewModel.getRecipes().observe(getViewLifecycleOwner(), userRecipes -> {
             //Have to do so liveData listeners are registered
         });
-        recipeAdapter.setOnClickListener(userrecepie -> {
-            System.out.println(userrecepie.getId());
+        recipeAdapter.setOnClickListener(userRecipe -> {
+            viewModel.saveId(userRecipe.getId());
+            //Move to Detailed view
+            ((MainActivity)getActivity()).navController.navigate(R.id.nav_recipe_details);
         });
 
         return root;

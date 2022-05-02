@@ -14,6 +14,7 @@ public class UserRecipeRepository {
     private static UserRecipeRepository instance;
     private DatabaseReference reference;
     private UserRecipeLiveData recipes;
+    private String id;
 
     private UserRecipeRepository() {
     }
@@ -54,4 +55,15 @@ public class UserRecipeRepository {
         CurrentUserRepository currentUserRepository = CurrentUserRepository.getInstance();
         return currentUserRepository.getSafeCurrentUserEmail(currentUserRepository.getCurrentUser().getValue().getEmail());
     }
+
+    public void saveId(String id) {
+        this.id = id;
+    }
+
+    public String getId(){
+        return id;
+    }
+
+
+
 }
