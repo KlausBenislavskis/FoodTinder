@@ -22,7 +22,7 @@ import com.example.foodtinder.R;
 import com.example.foodtinder.adapters.RecipeAdapter;
 import com.example.foodtinder.callback.RecipeSwipeCallback;
 import com.example.foodtinder.models.RecipeItemModel;
-import com.example.foodtinder.repositories.RecipeRepository;
+import com.example.foodtinder.repositories.recipe.RecipeRepository;
 import com.yuyakaido.android.cardstackview.CardStackLayoutManager;
 import com.yuyakaido.android.cardstackview.CardStackListener;
 import com.yuyakaido.android.cardstackview.CardStackView;
@@ -32,6 +32,7 @@ import com.yuyakaido.android.cardstackview.SwipeableMethod;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class SwipeFragment extends Fragment {
 
@@ -44,11 +45,11 @@ public class SwipeFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         viewModel = new ViewModelProvider(this).get(SwipeViewModel.class);
         viewModel.init();
+        viewModel.getUserRecipes().observe(getViewLifecycleOwner(), userRecipes -> {
+//dont delete pls
+        });
         View root = inflater.inflate(R.layout.fragment_swipe, container, false);
         init(root);
-        viewModel.getRecipes().observe(getViewLifecycleOwner(), userRecipes -> {
-            //Have to do so liveData listeners are registered
-        });
         return root;
     }
 
@@ -67,7 +68,7 @@ public class SwipeFragment extends Fragment {
                 }
                 // Paginating
                 if (manager.getTopPosition() == adapter.getItemCount() - 5) {
-                    paginate();
+                    RecipeRepository.getInstance().searchRecipe("chicken");
                 }
 
             }
@@ -104,25 +105,17 @@ public class SwipeFragment extends Fragment {
         manager.setCanScrollHorizontal(true);
         manager.setSwipeableMethod(SwipeableMethod.Manual);
         manager.setOverlayInterpolator(new LinearInterpolator());
-        adapter = new RecipeAdapter(addList());
+
+        adapter = new RecipeAdapter(new ArrayList<>());
+        viewModel.getRecipes().observe(getViewLifecycleOwner(), recipes -> {
+            if(recipes != null) {
+           adapter.addRecipes(map(recipes));}
+        });
+        viewModel.searchRecipe("chicken");
         cardStackView.setLayoutManager(manager);
         cardStackView.setAdapter(adapter);
         cardStackView.setItemAnimator(new DefaultItemAnimator());
     }
 
-    private void paginate() {
-        List<RecipeItemModel> old = adapter.getItems();
-        List<RecipeItemModel> newList = new ArrayList<>(addList());
-        RecipeSwipeCallback callback = new RecipeSwipeCallback(old, newList);
-        DiffUtil.DiffResult results = DiffUtil.calculateDiff(callback);
-        adapter.setItems(newList);
-        results.dispatchUpdatesTo(adapter);
-    }
-
-    private List<RecipeItemModel> addList() {
-        RecipeRepository repository = RecipeRepository.getInstance();
-        repository.searchRecipe("chicken");
-        return map(repository.getSearchedRecipe().getValue());
-    }
 
 }

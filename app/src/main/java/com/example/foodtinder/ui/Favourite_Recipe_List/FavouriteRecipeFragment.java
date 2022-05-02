@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.foodtinder.R;
 import com.example.foodtinder.adapters.FavouriteRecipeListAdapter;
 import com.example.foodtinder.models.RecipeItemModel;
-import com.example.foodtinder.repositories.RecipeRepository;
+import com.example.foodtinder.repositories.recipe.RecipeRepository;
 
 import java.util.List;
 
