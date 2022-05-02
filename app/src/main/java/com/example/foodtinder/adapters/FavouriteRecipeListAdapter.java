@@ -2,7 +2,6 @@ package com.example.foodtinder.adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,17 +9,19 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodtinder.R;
 import com.example.foodtinder.callback.RecipeClickCallBack;
+import com.example.foodtinder.callback.UserRecipeCallback;
 import com.example.foodtinder.models.UserRecipe;
-import com.example.foodtinder.ui.Recipe_Details.RecipeDetailsFragment;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FavouriteRecipeListAdapter extends RecyclerView.Adapter<FavouriteRecipeListAdapter.ViewHolder> {
-    private List<UserRecipe> recipes;
+    private ArrayList<UserRecipe> recipes;
     private RecipeClickCallBack callBack;
     private Context context;
 
@@ -28,7 +29,7 @@ public class FavouriteRecipeListAdapter extends RecyclerView.Adapter<FavouriteRe
         this.callBack = listener;
     }
 
-    public FavouriteRecipeListAdapter(Context context, List<UserRecipe> recipeItemModelList) {
+    public FavouriteRecipeListAdapter(Context context, ArrayList<UserRecipe> recipeItemModelList) {
         this.context = context;
         this.recipes = recipeItemModelList;
     }
@@ -43,7 +44,7 @@ public class FavouriteRecipeListAdapter extends RecyclerView.Adapter<FavouriteRe
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
-        UserRecipe item = recipes.get(position);
+        UserRecipe r = recipes.get(position);
         holder.title.setText(recipes.get(position).getName());
         holder.layout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,6 +57,15 @@ public class FavouriteRecipeListAdapter extends RecyclerView.Adapter<FavouriteRe
     @Override
     public int getItemCount() {
         return recipes.size();
+    }
+
+    public void setRecipes(ArrayList<UserRecipe> userRecipes) {
+            List<UserRecipe> old = recipes;
+            List<UserRecipe> newList = new ArrayList<>(userRecipes);
+            UserRecipeCallback callback = new UserRecipeCallback(old, newList);
+            DiffUtil.DiffResult results = DiffUtil.calculateDiff(callback);
+            this.recipes = userRecipes;
+            results.dispatchUpdatesTo(this);
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
