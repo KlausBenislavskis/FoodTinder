@@ -1,6 +1,5 @@
 package com.example.foodtinder.ui.Friends_List;
 
-import static com.example.foodtinder.mappers.ApiToModel.map;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -17,19 +16,11 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-
-import com.example.foodtinder.MainActivity;
 import com.example.foodtinder.R;
 import com.example.foodtinder.adapters.FriendsListAdapter;
-import com.example.foodtinder.models.RecipeItemModel;
 import com.example.foodtinder.models.UserItemModel;
-import com.example.foodtinder.repositories.RecipeRepository;
-import com.example.foodtinder.ui.Swipe.SwipeViewModel;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-
 
 public class FriendsListFragment extends Fragment {
     RecyclerView friendsList;
