@@ -41,21 +41,12 @@ public class LoginActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // [START config_signin]
-        // Configure Google Sign In
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
-
-
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-        // [END config_signin]
-
-        // [START initialize_auth]
-        // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
-        // [END initialize_auth]
         setContentView(R.layout.login_activity);
         button = findViewById(R.id.button_login_google);
         button.setOnClickListener(v-> signIn());

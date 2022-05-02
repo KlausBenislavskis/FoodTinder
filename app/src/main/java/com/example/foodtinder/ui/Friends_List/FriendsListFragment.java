@@ -1,6 +1,7 @@
 package com.example.foodtinder.ui.Friends_List;
 
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,7 @@ import com.example.foodtinder.MainActivity;
 import com.example.foodtinder.R;
 import com.example.foodtinder.adapters.FriendsListAdapter;
 import com.example.foodtinder.models.UserItemModel;
+import com.example.foodtinder.ui.Favourite_Recipe_List.FavouriteRecipeFragment;
 
 import java.util.ArrayList;
 
@@ -61,8 +63,16 @@ public class FriendsListFragment extends Fragment {
         else{
             Toast.makeText(getContext(), "User already in friend list", Toast.LENGTH_SHORT).show();
         }});
-        adapter.setOnItemClickListener(email -> {
 
+
+        adapter.setOnItemClickListener(email -> {
+            Fragment fragment = new Fragment();
+            Bundle bundle = new Bundle();
+            bundle.putString("email", email);
+            fragment.setArguments(bundle);
+            ((MainActivity)getActivity()).navController.navigate(R.id.nav_favourites,bundle);
         });
     }
+
+
 }

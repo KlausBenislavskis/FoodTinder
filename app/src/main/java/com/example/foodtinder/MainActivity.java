@@ -24,9 +24,11 @@ import com.example.foodtinder.repositories.recipe.RecipeRepository;
 import com.example.foodtinder.repositories.userCurrent.CurrentUserRepository;
 import com.example.foodtinder.repositories.userFriends.UserFriendRepository;
 import com.example.foodtinder.repositories.userRecipe.UserRecipeRepository;
+import com.example.foodtinder.ui.Favourite_Recipe_List.FavouriteRecipeFragment;
+import com.example.foodtinder.ui.Friends_List.FriendsListFragment;
 import com.google.android.material.navigation.NavigationView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity  {
 
      public NavController navController;
     AppBarConfiguration appBarConfiguration;
@@ -63,6 +65,9 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(this, LoginActivity.class));
         finish();
 
+    }
+    public void onFragmentInteraction() {
+        navController.navigate(R.id.nav_favourites);
     }
 
 
