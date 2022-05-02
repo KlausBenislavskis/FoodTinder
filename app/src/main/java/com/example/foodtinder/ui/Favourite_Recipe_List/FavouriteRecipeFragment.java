@@ -1,7 +1,5 @@
 package com.example.foodtinder.ui.Favourite_Recipe_List;
 
-import static com.example.foodtinder.mappers.ApiToModel.map;
-
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,15 +14,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodtinder.R;
 import com.example.foodtinder.adapters.FavouriteRecipeListAdapter;
-import com.example.foodtinder.models.RecipeItemModel;
+import com.example.foodtinder.models.UserRecipe;
 import com.example.foodtinder.repositories.recipe.RecipeRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FavouriteRecipeFragment extends Fragment {
 
-    RecyclerView recipeList;
-    FavouriteRecipeListAdapter recipeAdapter;
+    private RecyclerView recipeList;
+    private FavouriteRecipeListAdapter recipeAdapter;
     private FavouriteRecipeViewModel viewModel;
 
     @Nullable
@@ -38,8 +37,11 @@ public class FavouriteRecipeFragment extends Fragment {
         recipeList = root.findViewById(R.id.favouriteRecipeListView);
         recipeList.hasFixedSize();
         recipeList.setLayoutManager(new LinearLayoutManager(getContext()));
-        List<RecipeItemModel> list = map(RecipeRepository.getInstance().getSearchedRecipe().getValue());
-        recipeAdapter = new FavouriteRecipeListAdapter(list);
+        //Temporary
+        List<UserRecipe> list = new ArrayList<>();
+        list.add(new UserRecipe("1", "pepe"));
+        list.add(new UserRecipe("2", "pepe2"));
+        recipeAdapter = new FavouriteRecipeListAdapter(getContext(), list);
         recipeList.setAdapter(recipeAdapter);
         viewModel.getRecipes().observe(getViewLifecycleOwner(), userRecipes -> {
             //Have to do so liveData listeners are registered

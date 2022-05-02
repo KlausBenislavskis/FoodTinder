@@ -4,6 +4,7 @@ import android.app.Application;
 
 import androidx.lifecycle.AndroidViewModel;
 
+import com.example.foodtinder.models.RecipeItemModel;
 import com.example.foodtinder.repositories.userRecipe.UserRecipeLiveData;
 import com.example.foodtinder.repositories.userRecipe.UserRecipeRepository;
 
@@ -18,7 +19,6 @@ public class FavouriteRecipeViewModel extends AndroidViewModel {
     public void init() {
         userRecipeRepository.init();
     }
-
 
     public UserRecipeLiveData getRecipes() {
         return userRecipeRepository.getRecipes();

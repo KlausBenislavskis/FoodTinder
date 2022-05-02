@@ -2,6 +2,7 @@ package com.example.foodtinder.repositories.userRecipe;
 
 import androidx.annotation.NonNull;
 
+import com.example.foodtinder.models.RecipeItemModel;
 import com.example.foodtinder.models.UserRecipe;
 import com.example.foodtinder.repositories.userCurrent.CurrentUserRepository;
 import com.google.firebase.database.DatabaseReference;
@@ -25,7 +26,7 @@ public class UserRecipeRepository {
     }
 
     public void init() {
-        reference =getUserRecipeDbReference(FirebaseDatabase.getInstance("https://foodtinder-b3f74-default-rtdb.europe-west1.firebasedatabase.app/").getReference("users"));
+        reference = getUserRecipeDbReference(FirebaseDatabase.getInstance("https://foodtinder-b3f74-default-rtdb.europe-west1.firebasedatabase.app/").getReference("users"));
         recipes = new UserRecipeLiveData(reference);
     }
 
