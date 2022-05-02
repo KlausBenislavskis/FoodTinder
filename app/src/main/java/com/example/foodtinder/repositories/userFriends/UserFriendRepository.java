@@ -2,6 +2,7 @@ package com.example.foodtinder.repositories.userFriends;
 
 import androidx.annotation.NonNull;
 
+import com.example.foodtinder.models.UserItemModel;
 import com.example.foodtinder.repositories.userCurrent.CurrentUserRepository;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -22,7 +23,7 @@ public class UserFriendRepository {
         return instance;
     }
     public void init() {
-        reference = getUserFriendsDbReference(FirebaseDatabase.getInstance("https://foodtinder-b3f74-default-rtdb.europe-west1.firebasedatabase.app/").getReference("users"));
+        reference = getUserFriendsDbReference(FirebaseDatabase.getInstance("https://foodtinder-b3f74-default-rtdb.europe-west1.firebasedatabase.app/").getReference("users"),getCurrentUserSafeEmail());
         friends = new UserFriendLiveData(reference);
     }
     public void addFriend(String friend) {
@@ -33,6 +34,19 @@ public class UserFriendRepository {
         if(!friendsList.contains(friend)) {
             friendsList.add(friend);
             reference.setValue(friendsList);
+            DatabaseReference friendsReference =
+            getUserFriendsDbReference(FirebaseDatabase.getInstance("https://foodtinder-b3f74-default-rtdb.europe-west1.firebasedatabase.app/")
+                    .getReference("users"),CurrentUserRepository.getInstance().getSafeCurrentUserEmail(friend));
+            friendsReference.get().addOnCompleteListener(v->{
+                if(v.isSuccessful()) {
+                    ArrayList<String> friends = (ArrayList<String>)v.getResult().getValue();
+                    if(friends == null) {
+                        friends = new ArrayList<>();
+                    }
+                    friends.add(CurrentUserRepository.getInstance().getCurrentUser().getValue().getEmail());
+                    friendsReference.setValue(friends);
+                }
+            });
         }
     }
 
@@ -40,13 +54,14 @@ public class UserFriendRepository {
         return friends;
     }
     @NonNull
-    private DatabaseReference getUserFriendsDbReference(DatabaseReference myRef) {
+    private DatabaseReference getUserFriendsDbReference(DatabaseReference myRef,String userEmail) {
         return myRef
-                .child(getCurrentUserSafeEmail())
+                .child(userEmail)
                 .child("friendsList");
     }
     private String getCurrentUserSafeEmail() {
         CurrentUserRepository currentUserRepository = CurrentUserRepository.getInstance();
         return currentUserRepository.getSafeCurrentUserEmail(currentUserRepository.getCurrentUser().getValue().getEmail());
     }
+
 }

@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">FoodTinder</string>
     <string name="home">Home</string>
-    <string name="swipe">swipe</string>
+    <string name="swipe">Swipe</string>
     <string name="favourites">Favourites</string>
     <string name="friends">Friends</string>
 </resources>
