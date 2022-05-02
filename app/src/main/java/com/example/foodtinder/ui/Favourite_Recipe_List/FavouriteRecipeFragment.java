@@ -43,7 +43,7 @@ public class FavouriteRecipeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         viewModel = new ViewModelProvider(this).get(FavouriteRecipeViewModel.class);
-        viewModel.init();
+        viewModel.init(getArguments() == null ? "": getArguments().getString("email"));
         RecipeRepository.getInstance().searchRecipe("chicken");
 
         recipeList = view.findViewById(R.id.favouriteRecipeListView);
@@ -51,16 +51,19 @@ public class FavouriteRecipeFragment extends Fragment {
         recipeList.setLayoutManager(new LinearLayoutManager(getContext()));
         //Temporary
         recipeAdapter = new FavouriteRecipeListAdapter(getContext(), new ArrayList<>());
-
-        if(getArguments() == null) {
-            viewModel.getRecipes().observe(getViewLifecycleOwner(), userRecipes -> {
+//
+//        if(getArguments() == null) {
+//            viewModel.getRecipes().observe(getViewLifecycleOwner(), userRecipes -> {
+//                recipeAdapter.setRecipes(userRecipes);
+//            });
+//        }else {
+//            viewModel.getRecipes().observe(getViewLifecycleOwner(), userRecipes -> {
+//                System.out.println(getArguments().getString("email"));
+//            });
+//        }
+                    viewModel.getRecipes().observe(getViewLifecycleOwner(), userRecipes -> {
                 recipeAdapter.setRecipes(userRecipes);
             });
-        }else {
-            viewModel.getRecipes().observe(getViewLifecycleOwner(), userRecipes -> {
-                System.out.println(getArguments().getString("email"));
-            });
-        }
         recipeAdapter.setOnClickListener(userRecipe -> {
             viewModel.saveId(userRecipe.getId());
             //Move to Detailed view

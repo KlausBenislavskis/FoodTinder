@@ -18,13 +18,11 @@ public class UserRecipeLiveData extends LiveData<ArrayList<UserRecipe>> {
 
         @Override
         public void onDataChange(@NonNull DataSnapshot snapshot) {
-//            Map<String, UserRecipe> UserRecipeHashMap = snapshot.getValue(UserRecipesGTypeInd);
-//            ArrayList<UserRecipe> recipes = new ArrayList<UserRecipe>(UserRecipeHashMap.values());
-//            setValue(recipes);
            ArrayList<UserRecipe> recipes = new ArrayList<>();
+           if(snapshot.getValue()!=null){
             for(HashMap<String,String> recipe : (ArrayList<HashMap<String,String>>) snapshot.getValue()){
                     recipes.add(new UserRecipe(recipe.get("name"),recipe.get("id")));
-            }
+            }}
             setValue(recipes);
         }
 

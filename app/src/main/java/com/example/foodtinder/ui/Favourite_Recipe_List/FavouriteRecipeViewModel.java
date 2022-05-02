@@ -16,8 +16,8 @@ public class FavouriteRecipeViewModel extends AndroidViewModel {
         super(app);
         userRecipeRepository = UserRecipeRepository.getInstance();
     }
-    public void init() {
-        userRecipeRepository.init();
+    public void init(String email) {
+        userRecipeRepository.init(email);
     }
 
     public UserRecipeLiveData getRecipes() {

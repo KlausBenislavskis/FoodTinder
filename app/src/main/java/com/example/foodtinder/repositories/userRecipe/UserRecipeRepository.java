@@ -2,7 +2,6 @@ package com.example.foodtinder.repositories.userRecipe;
 
 import androidx.annotation.NonNull;
 
-import com.example.foodtinder.models.RecipeItemModel;
 import com.example.foodtinder.models.UserRecipe;
 import com.example.foodtinder.repositories.userCurrent.CurrentUserRepository;
 import com.google.firebase.database.DatabaseReference;
@@ -26,11 +25,19 @@ public class UserRecipeRepository {
         return instance;
     }
 
-    public void init() {
-        reference = getUserRecipeDbReference(FirebaseDatabase.getInstance("https://foodtinder-b3f74-default-rtdb.europe-west1.firebasedatabase.app/").getReference("users"));
+
+    public void init(String email) {
+        if(!email.equals("")) {
+            CurrentUserRepository currentUserRepository = CurrentUserRepository.getInstance();
+
+            reference = getUserRecipeDbReference(FirebaseDatabase.getInstance("https://foodtinder-b3f74-default-rtdb.europe-west1.firebasedatabase.app/")
+                    .getReference("users"),currentUserRepository.getSafeCurrentUserEmail(email));
+        }else
+            reference = getUserRecipeDbReference(FirebaseDatabase.getInstance("https://foodtinder-b3f74-default-rtdb.europe-west1.firebasedatabase.app/")
+                    .getReference("users"),getCurrentUserSafeEmail());
+
         recipes = new UserRecipeLiveData(reference);
     }
-
     public void saveRecipe(UserRecipe recipe) {
         ArrayList<UserRecipe> recipesList = recipes.getValue();
         if(recipesList == null) {
@@ -45,9 +52,9 @@ public class UserRecipeRepository {
     }
 
     @NonNull
-    private DatabaseReference getUserRecipeDbReference(DatabaseReference myRef) {
+    private DatabaseReference getUserRecipeDbReference(DatabaseReference myRef, String email) {
         return myRef
-                .child(getCurrentUserSafeEmail())
+                .child(email)
                 .child("favouriteRecipes");
     }
 
