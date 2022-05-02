@@ -1,32 +1,18 @@
 package com.example.foodtinder.adapters;
-
 import android.annotation.SuppressLint;
-import android.content.Context;
-import android.transition.TransitionManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.navigation.NavController;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.foodtinder.R;
-import com.example.foodtinder.models.RecipeItemModel;
+import com.example.foodtinder.callback.FriendClickCallBack;
 import com.example.foodtinder.models.UserItemModel;
-import com.example.foodtinder.ui.Favourite_Recipe_List.FavouriteRecipeFragment;
-import com.squareup.picasso.Picasso;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class FriendsListAdapter extends RecyclerView.Adapter<FriendsListAdapter.ViewHolder> {
@@ -34,6 +20,7 @@ public class FriendsListAdapter extends RecyclerView.Adapter<FriendsListAdapter.
     private OnClickListener listener;
     int previousExpandedPosition = -1;
     int mExpandedPosition = -1;
+    public FriendClickCallBack callback;
 
     public void setOnClickListener(OnClickListener listener) {
         this.listener = listener;
@@ -85,10 +72,13 @@ public class FriendsListAdapter extends RecyclerView.Adapter<FriendsListAdapter.
                 notifyItemChanged(position);
             }
         });
+
+
+
         holder.friendsFavouriteRecipesButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-               //Move to list of recipes of chosen friend
+                callback.onClick(friends.get(holder.getBindingAdapterPosition()).toString());
             }
         });
     }
@@ -99,6 +89,10 @@ public class FriendsListAdapter extends RecyclerView.Adapter<FriendsListAdapter.
             return friends.size();
         }
         return 0;
+    }
+    public void setOnItemClickListener(FriendClickCallBack callBack)
+    {
+        this.callback = callBack;
     }
 
     class ViewHolder extends RecyclerView.ViewHolder  {
@@ -118,6 +112,7 @@ public class FriendsListAdapter extends RecyclerView.Adapter<FriendsListAdapter.
             itemView.setOnClickListener(v ->{
                 //listener.onClick(friends.get(getBindingAdapterPosition()));
                 System.out.println("Clicked");
+
             });
         }
     }

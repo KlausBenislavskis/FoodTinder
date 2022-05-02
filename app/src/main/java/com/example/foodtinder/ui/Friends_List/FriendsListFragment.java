@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.foodtinder.MainActivity;
 import com.example.foodtinder.R;
 import com.example.foodtinder.adapters.FriendsListAdapter;
 import com.example.foodtinder.models.UserItemModel;
@@ -60,5 +61,8 @@ public class FriendsListFragment extends Fragment {
         else{
             Toast.makeText(getContext(), "User already in friend list", Toast.LENGTH_SHORT).show();
         }});
+        adapter.setOnItemClickListener(email -> {
+
+        });
     }
 }
