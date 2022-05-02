@@ -27,12 +27,12 @@ public class FriendsListAdapter extends RecyclerView.Adapter<FriendsListAdapter.
     }
 
     public boolean contains(String email) {
-        return friends != null && friends.contains(email);
-//        if (friends.contains(email))
-//        {
-//            return true;
-//        }
-//        return false;
+        if(friends != null) {
+            if (friends.contains(email)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public FriendsListAdapter(List<String> friends) {
