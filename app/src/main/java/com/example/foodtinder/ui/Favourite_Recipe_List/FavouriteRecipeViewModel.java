@@ -23,4 +23,8 @@ public class FavouriteRecipeViewModel extends AndroidViewModel {
     public UserRecipeLiveData getRecipes() {
         return userRecipeRepository.getRecipes();
     }
+
+    public void saveId(String id) {
+        userRecipeRepository.saveId(id);
+    }
 }

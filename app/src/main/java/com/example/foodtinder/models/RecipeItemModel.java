@@ -63,4 +63,36 @@ public class RecipeItemModel {
     public double getCalories() {
         return calories;
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setIngredients(ArrayList<Ingredient> ingredients) {
+        this.ingredients = ingredients;
+    }
+
+    public void setCautions(ArrayList<String> cautions) {
+        this.cautions = cautions;
+    }
+
+    public void setTotalTime(int totalTime) {
+        this.totalTime = totalTime;
+    }
+
+    public void setCalories(double calories) {
+        this.calories = calories;
+    }
 }

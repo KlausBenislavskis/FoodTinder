@@ -109,7 +109,8 @@ public class SwipeFragment extends Fragment {
         adapter = new RecipeAdapter(new ArrayList<>());
         viewModel.getRecipes().observe(getViewLifecycleOwner(), recipes -> {
             if(recipes != null) {
-           adapter.addRecipes(map(recipes));}
+           adapter.addRecipes(map(recipes));
+            }
         });
         viewModel.searchRecipe("chicken");
         cardStackView.setLayoutManager(manager);
