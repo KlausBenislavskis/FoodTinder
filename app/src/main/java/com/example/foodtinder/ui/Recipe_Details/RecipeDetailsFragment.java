@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.foodtinder.R;
@@ -45,22 +46,24 @@ public class RecipeDetailsFragment extends Fragment {
         cautions = root.findViewById(R.id.recipe_cautions);
         totalTime = root.findViewById(R.id.recipe_totalTime);
 
-        RecipeItemModel recipeItemModel = viewModel.getRecipeDetails();
-        System.out.println(recipeItemModel.getName());
-        title.setText(recipeItemModel.getName());
-        Picasso.get()
-                .load(recipeItemModel.getImage())
-                .fit()
-                .centerCrop()
-                .into(image);
-        String ing = "";
-        for(Ingredient item: recipeItemModel.getIngredients()){
-            ing += item + "\n";
-        }
-        ingredients.setText(ing);
-        calories.setText(String.valueOf(recipeItemModel.getCalories()));
-        cautions.setText((CharSequence) recipeItemModel.getCautions());
-        totalTime.setText(recipeItemModel.getTotalTime());
+        MutableLiveData<RecipeItemModel> recipeItemModelLive = viewModel.getRecipeDetails();
+        recipeItemModelLive.observe(getViewLifecycleOwner(), recipeItemModel -> {
+            title.setText(recipeItemModel.getName());
+            Picasso.get()
+                    .load(recipeItemModel.getImage())
+                    .fit()
+                    .centerCrop()
+                    .into(image);
+            String ing = "";
+            for(Ingredient item: recipeItemModel.getIngredients()){
+                ing += item + "\n";
+            }
+            ingredients.setText(ing);
+            calories.setText(String.valueOf(recipeItemModel.getCalories()));
+//            cautions.setText((CharSequence) recipeItemModel.getCautions());
+//            totalTime.setText(recipeItemModel.getTotalTime());
+        });
+
         return root;
     }
 }

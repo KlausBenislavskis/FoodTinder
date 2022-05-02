@@ -3,9 +3,9 @@ package com.example.foodtinder.ui.Recipe_Details;
 import android.app.Application;
 
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.MutableLiveData;
 
 import com.example.foodtinder.models.RecipeItemModel;
-import com.example.foodtinder.repositories.recipe.RecipeLiveData;
 import com.example.foodtinder.repositories.recipe.RecipeRepository;
 import com.example.foodtinder.repositories.userRecipe.UserRecipeRepository;
 
@@ -27,7 +27,7 @@ public class RecipeDetailsViewModel extends AndroidViewModel {
         return userRepository.getId();
     }
 
-    public RecipeItemModel getRecipeDetails(){
+    public MutableLiveData<RecipeItemModel> getRecipeDetails(){
         return repository.searchRecipeById(getRecipeId());
     }
 }
