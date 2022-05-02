@@ -50,12 +50,9 @@ public class FavouriteRecipeFragment extends Fragment {
         recipeList.hasFixedSize();
         recipeList.setLayoutManager(new LinearLayoutManager(getContext()));
         //Temporary
-        List<UserRecipe> list = new ArrayList<>();
-        list.add(new UserRecipe("1", "recipe_2ddf624f840bc321c85eca5e28d59bc7"));
-        list.add(new UserRecipe("2", "recipe_a50e6af4ff0cd6d01b1462f97fd6e29b"));
-        recipeAdapter = new FavouriteRecipeListAdapter(getContext(), list);
-        recipeList.setAdapter(recipeAdapter);
+        recipeAdapter = new FavouriteRecipeListAdapter(getContext(), new ArrayList<>());
         viewModel.getRecipes().observe(getViewLifecycleOwner(), userRecipes -> {
+            recipeAdapter.setRecipes(userRecipes);
             recipeAdapter.set(userRecipes);
         });
         if(getArguments() == null) {
@@ -72,6 +69,8 @@ public class FavouriteRecipeFragment extends Fragment {
             //Move to Detailed view
             ((MainActivity)getActivity()).navController.navigate(R.id.nav_recipe_details);
         });
+        recipeList.setAdapter(recipeAdapter);
+
     }
     public FavouriteRecipeFragment()
     {

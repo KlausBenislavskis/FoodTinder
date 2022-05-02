@@ -4,12 +4,14 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 
 import com.example.foodtinder.models.UserRecipe;
+import com.firebase.ui.auth.data.model.User;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class UserRecipeLiveData extends LiveData<ArrayList<UserRecipe>> {
     private final ValueEventListener listener = new ValueEventListener() {
@@ -19,7 +21,10 @@ public class UserRecipeLiveData extends LiveData<ArrayList<UserRecipe>> {
 //            Map<String, UserRecipe> UserRecipeHashMap = snapshot.getValue(UserRecipesGTypeInd);
 //            ArrayList<UserRecipe> recipes = new ArrayList<UserRecipe>(UserRecipeHashMap.values());
 //            setValue(recipes);
-            ArrayList<UserRecipe> recipes = (ArrayList<UserRecipe>) snapshot.getValue();
+           ArrayList<UserRecipe> recipes = new ArrayList<>();
+            for(HashMap<String,String> recipe : (ArrayList<HashMap<String,String>>) snapshot.getValue()){
+                    recipes.add(new UserRecipe(recipe.get("name"),recipe.get("id")));
+            }
             setValue(recipes);
         }
 
