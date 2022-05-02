@@ -35,10 +35,7 @@ public class FavouriteRecipeFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        System.out.println(savedInstanceState);
-
         return inflater.inflate(R.layout.fragment_favourite_recipe_list, container, false);
-
     }
 
     @Override
@@ -61,12 +58,12 @@ public class FavouriteRecipeFragment extends Fragment {
         viewModel.getRecipes().observe(getViewLifecycleOwner(), userRecipes -> {
             recipeAdapter.set(userRecipes);
         });
-        if(getArguments() != null) {
-            recipeAdapter.setOnClickListener(userrecepie -> {
-
+        if(getArguments() == null) {
+            viewModel.getRecipes().observe(getViewLifecycleOwner(), userRecipes -> {
+                recipeAdapter.set(userRecipes);
             });
         }else {
-            recipeAdapter.setOnClickListener(userrecepie -> {
+            viewModel.getRecipes().observe(getViewLifecycleOwner(), userRecipes -> {
                 System.out.println(getArguments().getString("email"));
             });
         }
@@ -75,8 +72,6 @@ public class FavouriteRecipeFragment extends Fragment {
             //Move to Detailed view
             ((MainActivity)getActivity()).navController.navigate(R.id.nav_recipe_details);
         });
-
-        return root;
     }
     public FavouriteRecipeFragment()
     {
