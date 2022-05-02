@@ -39,6 +39,14 @@ public class FriendsListAdapter extends RecyclerView.Adapter<FriendsListAdapter.
         this.listener = listener;
     }
 
+    public boolean contains(String email) {
+        if (friends.contains(email))
+        {
+            return true;
+        }
+        return false;
+    }
+
     public FriendsListAdapter(List<String> friends) {
         this.friends = friends;
     }
@@ -87,9 +95,11 @@ public class FriendsListAdapter extends RecyclerView.Adapter<FriendsListAdapter.
 
     @Override
     public int getItemCount() {
-        return friends.size();
+        if(friends != null) {
+            return friends.size();
+        }
+        return 0;
     }
-
 
     class ViewHolder extends RecyclerView.ViewHolder  {
         private ImageView image;

@@ -63,13 +63,11 @@ public class FriendsListFragment extends Fragment {
         addFriendButton = view.findViewById(R.id.addFriendButton);
         email = view.findViewById(R.id.friendsEmailAddressInputField);
         addFriendButton.setOnClickListener(v->{
-            if(!friends.contains(email.getText())) {
-                viewModel.onAddFriend(email.getText().toString());
-            }
-            else{
-                Toast toast = Toast.makeText(getContext(), "User already in friend list", Toast.LENGTH_SHORT);
-                toast.show();
-            }
-        });
+        if(!adapter.contains(email.getText().toString())) {
+            viewModel.onAddFriend(email.getText().toString());
+        }
+        else{
+            Toast.makeText(getContext(), "User already in friend list", Toast.LENGTH_SHORT).show();
+        }});
     }
 }
