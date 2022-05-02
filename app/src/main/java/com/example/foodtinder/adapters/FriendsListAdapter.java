@@ -106,7 +106,8 @@ public class FriendsListAdapter extends RecyclerView.Adapter<FriendsListAdapter.
             shareButton = itemView.findViewById(R.id.share_button);
             friendsFavouriteRecipesButton = itemView.findViewById(R.id.friendsRecipesListButton);
             itemView.setOnClickListener(v ->{
-                System.out.println("clicked");
+                //listener.onClick(friends.get(getBindingAdapterPosition()));
+                System.out.println("Clicked");
             });
         }
     }
