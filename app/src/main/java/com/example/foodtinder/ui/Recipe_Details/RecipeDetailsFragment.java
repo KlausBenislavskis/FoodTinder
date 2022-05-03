@@ -20,6 +20,7 @@ import com.example.foodtinder.models.RecipeItemModel;
 import com.example.foodtinder.models.api.Ingredient;
 import com.squareup.picasso.Picasso;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 
@@ -55,13 +56,22 @@ public class RecipeDetailsFragment extends Fragment {
                     .centerCrop()
                     .into(image);
             String ing = "";
+            DecimalFormat df = new DecimalFormat("0.00");
             for(Ingredient item: recipeItemModel.getIngredients()){
-                ing += item + "\n";
+                if(item.measure == null || item.quantity == 0){
+                    ing += item.food + "\n";
+                }
+                else{
+                    ing += df.format(item.quantity) + " " + item.measure + " " + item.food + "\n";
+                }
             }
             ingredients.setText(ing);
-            calories.setText(String.valueOf(recipeItemModel.getCalories()));
-//            cautions.setText((CharSequence) recipeItemModel.getCautions());
-//            totalTime.setText(recipeItemModel.getTotalTime());
+            calories.setText(String.valueOf(df.format(recipeItemModel.getCalories())));
+            StringBuilder str = new StringBuilder(String.valueOf(recipeItemModel.getCautions()));
+            str.deleteCharAt(0);
+            str.deleteCharAt(str.length() -1);
+            cautions.setText(str);
+            totalTime.setText(String.valueOf(recipeItemModel.getTotalTime()));
         });
 
         return root;
