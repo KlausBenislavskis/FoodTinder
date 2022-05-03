@@ -32,10 +32,10 @@ public class UserRecipeRepository {
 
             reference = getUserRecipeDbReference(FirebaseDatabase.getInstance("https://foodtinder-b3f74-default-rtdb.europe-west1.firebasedatabase.app/")
                     .getReference("users"),currentUserRepository.getSafeCurrentUserEmail(email));
-        }else
+        }else {
             reference = getUserRecipeDbReference(FirebaseDatabase.getInstance("https://foodtinder-b3f74-default-rtdb.europe-west1.firebasedatabase.app/")
-                    .getReference("users"),getCurrentUserSafeEmail());
-
+                    .getReference("users"), getCurrentUserSafeEmail());
+        }
         recipes = new UserRecipeLiveData(reference);
     }
     public void saveRecipe(UserRecipe recipe) {

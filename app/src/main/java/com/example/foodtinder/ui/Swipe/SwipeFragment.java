@@ -46,7 +46,7 @@ public class SwipeFragment extends Fragment {
         viewModel = new ViewModelProvider(this).get(SwipeViewModel.class);
         viewModel.init();
         viewModel.getUserRecipes().observe(getViewLifecycleOwner(), userRecipes -> {
-        //dont delete pls
+        //dont delete pls, David:why?
         });
         View root = inflater.inflate(R.layout.fragment_swipe, container, false);
         init(root);
@@ -109,7 +109,7 @@ public class SwipeFragment extends Fragment {
         adapter = new RecipeAdapter(new ArrayList<>());
         viewModel.getRecipes().observe(getViewLifecycleOwner(), recipes -> {
             if(recipes != null) {
-           adapter.addRecipes(map(recipes));
+               adapter.addRecipes(map(recipes));
             }
         });
         String query = RecipeRepository.getInstance().getQuery();

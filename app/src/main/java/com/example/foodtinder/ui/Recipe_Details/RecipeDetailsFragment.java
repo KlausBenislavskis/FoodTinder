@@ -7,6 +7,7 @@ import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,12 +19,15 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.foodtinder.R;
+import com.example.foodtinder.adapters.FavouriteRecipeListAdapter;
 import com.example.foodtinder.models.RecipeItemModel;
+import com.example.foodtinder.models.UserRecipe;
 import com.example.foodtinder.models.api.Ingredient;
 import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Objects;
 
 
 public class RecipeDetailsFragment extends Fragment {
@@ -36,6 +40,7 @@ public class RecipeDetailsFragment extends Fragment {
     private TextView cautions;
     private TextView totalTime;
     private TextView url;
+    private Button button;
 
     @Nullable
     @Override
@@ -50,7 +55,8 @@ public class RecipeDetailsFragment extends Fragment {
         cautions = root.findViewById(R.id.recipe_cautions);
         totalTime = root.findViewById(R.id.recipe_totalTime);
         url = root.findViewById(R.id.recipe_url);
-
+        button = root.findViewById(R.id.AddRecipeFromDetailsButton);
+        button.setVisibility(View.VISIBLE);
         MutableLiveData<RecipeItemModel> recipeItemModelLive = viewModel.getRecipeDetails();
         recipeItemModelLive.observe(getViewLifecycleOwner(), recipeItemModel -> {
             title.setText(recipeItemModel.getName());
@@ -80,7 +86,21 @@ public class RecipeDetailsFragment extends Fragment {
                     "<b></b>" +
                             "<a href=\"" + recipeItemModel.getUrl() + "\">Link to the recipe</a> "));
             url.setMovementMethod(LinkMovementMethod.getInstance());
+
+
+            viewModel.getRecipes().observe(getViewLifecycleOwner(), userRecipes -> {
+                for (UserRecipe l: userRecipes) {
+                    if(l.getName().equals(recipeItemModel.getName())){
+                        button.setVisibility(View.INVISIBLE);
+                    }
+                }
+            });
+            button.setOnClickListener(item->
+            {
+                viewModel.addRecipe(recipeItemModel);
+            });
         });
+
 
         return root;
     }

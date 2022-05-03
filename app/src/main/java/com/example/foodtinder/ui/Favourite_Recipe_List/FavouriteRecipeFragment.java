@@ -1,9 +1,12 @@
 package com.example.foodtinder.ui.Favourite_Recipe_List;
 
+import android.media.Image;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -31,7 +34,7 @@ public class FavouriteRecipeFragment extends Fragment {
     private RecyclerView recipeList;
     private FavouriteRecipeListAdapter recipeAdapter;
     private FavouriteRecipeViewModel viewModel;
-
+    ImageButton addButton;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -47,29 +50,22 @@ public class FavouriteRecipeFragment extends Fragment {
         RecipeRepository.getInstance().searchRecipe("chicken");
 
         recipeList = view.findViewById(R.id.favouriteRecipeListView);
+
         recipeList.hasFixedSize();
         recipeList.setLayoutManager(new LinearLayoutManager(getContext()));
         //Temporary
         recipeAdapter = new FavouriteRecipeListAdapter(getContext(), new ArrayList<>());
-//
-//        if(getArguments() == null) {
-//            viewModel.getRecipes().observe(getViewLifecycleOwner(), userRecipes -> {
-//                recipeAdapter.setRecipes(userRecipes);
-//            });
-//        }else {
-//            viewModel.getRecipes().observe(getViewLifecycleOwner(), userRecipes -> {
-//                System.out.println(getArguments().getString("email"));
-//            });
-//        }
-                    viewModel.getRecipes().observe(getViewLifecycleOwner(), userRecipes -> {
-                recipeAdapter.setRecipes(userRecipes);
-            });
+        viewModel.getRecipes().observe(getViewLifecycleOwner(), userRecipes -> {
+            recipeAdapter.setRecipes(userRecipes);
+        });
+
         recipeAdapter.setOnClickListener(userRecipe -> {
             viewModel.saveId(userRecipe.getId());
             //Move to Detailed view
             ((MainActivity)getActivity()).navController.navigate(R.id.nav_recipe_details);
         });
         recipeList.setAdapter(recipeAdapter);
+
 
     }
     public FavouriteRecipeFragment()
