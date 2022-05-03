@@ -37,24 +37,13 @@ public class MainActivity extends AppCompatActivity  {
     DrawerLayout drawerLayout;
     NavigationView navigationDrawer;
     Toolbar toolbar;
-    Button logout_button;
-    Button searchButton;
-    TextView errorLabel;
-    EditText input;
     CurrentUserRepository currentUserRepository;
-    UserItemModel userItemModel;
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initViews();
-        searchButton = findViewById(R.id.search_button);
-        input = findViewById(R.id.editText);
-        errorLabel = findViewById(R.id.errorLabel);
         setupNavigation();
         currentUserRepository = CurrentUserRepository.getInstance();
         checkIfSignedIn();
@@ -138,14 +127,4 @@ public class MainActivity extends AppCompatActivity  {
         return NavigationUI.onNavDestinationSelected(item, navController) || super.onOptionsItemSelected(item);
     }
 
-    public void searchRecipe(View view) {
-    if(input.getText().toString() == null || input.getText().toString().equals("")){
-        errorLabel.setVisibility(View.VISIBLE);
-        errorLabel.setText("Please input desired type of food");
-    }
-    else{
-        RecipeRepository.getInstance().setQuery(input.getText().toString());
-        navController.navigate(R.id.nav_swipe);
-    }
-    }
 }
