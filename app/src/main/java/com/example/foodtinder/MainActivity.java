@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -36,6 +38,9 @@ public class MainActivity extends AppCompatActivity  {
     NavigationView navigationDrawer;
     Toolbar toolbar;
     Button logout_button;
+    Button searchButton;
+    TextView errorLabel;
+    EditText input;
     CurrentUserRepository currentUserRepository;
     UserItemModel userItemModel;
 
@@ -47,6 +52,9 @@ public class MainActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initViews();
+        searchButton = findViewById(R.id.search_button);
+        input = findViewById(R.id.editText);
+        errorLabel = findViewById(R.id.errorLabel);
         setupNavigation();
         currentUserRepository = CurrentUserRepository.getInstance();
         checkIfSignedIn();
@@ -86,11 +94,12 @@ public class MainActivity extends AppCompatActivity  {
         toolbar = findViewById(R.id.toolbar);
 
     }
+
     public void signOut()
     {
         CurrentUserRepository.getInstance().signOut(getApplication());
-
     }
+
     public void hideActionBar()
     {
         initViews();
@@ -111,8 +120,6 @@ public class MainActivity extends AppCompatActivity  {
 
     }
 
-
-
     @Override
     public boolean onSupportNavigateUp() {
         return NavigationUI.navigateUp(navController, appBarConfiguration) || super.onSupportNavigateUp();
@@ -126,10 +133,19 @@ public class MainActivity extends AppCompatActivity  {
             super.onBackPressed();
     }
 
-
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         return NavigationUI.onNavDestinationSelected(item, navController) || super.onOptionsItemSelected(item);
+    }
+
+    public void searchRecipe(View view) {
+    if(input.getText().toString() == null || input.getText().toString().equals("")){
+        errorLabel.setVisibility(View.VISIBLE);
+        errorLabel.setText("Please input desired type of food");
+    }
+    else{
+        RecipeRepository.getInstance().setQuery(input.getText().toString());
+        navController.navigate(R.id.nav_swipe);
+    }
     }
 }

@@ -46,7 +46,7 @@ public class SwipeFragment extends Fragment {
         viewModel = new ViewModelProvider(this).get(SwipeViewModel.class);
         viewModel.init();
         viewModel.getUserRecipes().observe(getViewLifecycleOwner(), userRecipes -> {
-//dont delete pls
+        //dont delete pls
         });
         View root = inflater.inflate(R.layout.fragment_swipe, container, false);
         init(root);
@@ -112,7 +112,8 @@ public class SwipeFragment extends Fragment {
            adapter.addRecipes(map(recipes));
             }
         });
-        viewModel.searchRecipe("chicken");
+        String query = RecipeRepository.getInstance().getQuery();
+        viewModel.searchRecipe(query);
         cardStackView.setLayoutManager(manager);
         cardStackView.setAdapter(adapter);
         cardStackView.setItemAnimator(new DefaultItemAnimator());

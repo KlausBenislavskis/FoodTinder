@@ -20,6 +20,7 @@ public class RecipeRepository {
     private static RecipeRepository instance;
     private DatabaseReference reference;
     private final MutableLiveData<ArrayList<Hit>> searchedRecipes;
+    private String query;
 
     public static synchronized RecipeRepository getInstance() {
         if (instance == null) {
@@ -34,6 +35,7 @@ public class RecipeRepository {
 
     private RecipeRepository() {
         searchedRecipes = new MutableLiveData<>();
+        query = "";
     }
 
     public MutableLiveData<ArrayList<Hit>> getSearchedRecipes() {
@@ -78,6 +80,14 @@ public class RecipeRepository {
             }
         });
         return searchedRecipe;
+    }
+
+    public void setQuery(String query){
+     this.query = query;
+    }
+
+    public String getQuery(){
+        return query;
     }
 }
 

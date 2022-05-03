@@ -2,6 +2,8 @@ package com.example.foodtinder.ui.Recipe_Details;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +35,7 @@ public class RecipeDetailsFragment extends Fragment {
     private TextView calories;
     private TextView cautions;
     private TextView totalTime;
+    private TextView url;
 
     @Nullable
     @Override
@@ -46,6 +49,7 @@ public class RecipeDetailsFragment extends Fragment {
         calories = root.findViewById(R.id.recipe_calories);
         cautions = root.findViewById(R.id.recipe_cautions);
         totalTime = root.findViewById(R.id.recipe_totalTime);
+        url = root.findViewById(R.id.recipe_url);
 
         MutableLiveData<RecipeItemModel> recipeItemModelLive = viewModel.getRecipeDetails();
         recipeItemModelLive.observe(getViewLifecycleOwner(), recipeItemModel -> {
@@ -72,6 +76,10 @@ public class RecipeDetailsFragment extends Fragment {
             str.deleteCharAt(str.length() -1);
             cautions.setText(str);
             totalTime.setText(String.valueOf(recipeItemModel.getTotalTime()));
+            url.setText(Html.fromHtml(
+                    "<b></b>" +
+                            "<a href=\"" + recipeItemModel.getUrl() + "\">Link to the recipe</a> "));
+            url.setMovementMethod(LinkMovementMethod.getInstance());
         });
 
         return root;
