@@ -5,16 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/round_layout_bg"
-    android:paddingTop="5dp"
-    android:paddingBottom="5dp">
+    android:paddingTop="@dimen/list_item_padding"
+    android:paddingBottom="@dimen/list_item_padding">
 
     <ImageView
         android:id="@+id/friend_Image"
         android:layout_width="75dp"
         android:layout_height="64dp"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:background="@drawable/fully_round_layout_bg"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.047"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -23,10 +22,9 @@
         android:layout_width="193dp"
         android:layout_height="33dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="52dp"
         android:translationX="30dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.821"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
@@ -46,6 +44,7 @@
         android:id="@+id/dropDownMenu"
         android:layout_width="205dp"
         android:layout_height="51dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="12dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/friend_Image" />
@@ -54,7 +53,9 @@
         android:id="@+id/friendsRecipesListButton"
         android:layout_width="match_parent"
         android:layout_height="44dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="12dp"
+        android:layout_marginEnd="16dp"
         android:text="Favourite recipes"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.583"

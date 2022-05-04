@@ -9,19 +9,23 @@
     <TextView
         android:id="@+id/recipe_title"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="@dimen/recipe_title_height"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
         android:background="@color/white"
-        android:backgroundTint="#6BFFFFFF"
+        android:backgroundTint="@color/recipeDetailsBGGrey"
         android:gravity="center_vertical|center_horizontal"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/recipe_small_image"
-        android:layout_width="172dp"
-        android:layout_height="172dp"
-        android:layout_marginStart="16dp"
+        android:layout_width="@dimen/recipe_details_image_size"
+        android:layout_height="@dimen/recipe_details_image_size"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:background="@drawable/round_layout_bg"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -32,9 +36,9 @@
         android:id="@+id/recipe_ingredients"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="44dp"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -42,28 +46,28 @@
 
     <TextView
         android:id="@+id/recipe_totalTime"
-        android:layout_width="140dp"
+        android:layout_width="@dimen/recipe_details_info_width"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginBottom="28dp"
+        android:layout_marginStart="@dimen/recipe_details_info_horiz_margin"
+        android:layout_marginBottom="40dp"
         app:layout_constraintBottom_toTopOf="@+id/recipe_calories"
         app:layout_constraintStart_toEndOf="@+id/recipe_small_image" />
 
     <TextView
         android:id="@+id/recipe_calories"
-        android:layout_width="140dp"
+        android:layout_width="@dimen/recipe_details_info_width"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginBottom="28dp"
+        android:layout_marginStart="@dimen/recipe_details_info_horiz_margin"
+        android:layout_marginBottom="40dp"
         app:layout_constraintBottom_toTopOf="@+id/recipe_cautions"
         app:layout_constraintStart_toEndOf="@+id/recipe_small_image" />
 
     <TextView
         android:id="@+id/recipe_cautions"
-        android:layout_width="140dp"
+        android:layout_width="@dimen/recipe_details_info_width"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginBottom="44dp"
+        android:layout_marginStart="@dimen/recipe_details_info_horiz_margin"
+        android:layout_marginBottom="40dp"
         app:layout_constraintBottom_toTopOf="@+id/recipe_ingredients"
         app:layout_constraintStart_toEndOf="@+id/recipe_small_image" />
 
@@ -71,9 +75,10 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginBottom="4dp"
-        android:text="Total time:"
+        android:layout_marginStart="@dimen/recipe_details_info_horiz_margin"
+        android:layout_marginBottom="@dimen/recipe_details_info_vert_margin"
+        android:text="@string/recipe_details_totalTime"
+        android:textSize="@dimen/sub_header_text_size"
         app:layout_constraintBottom_toTopOf="@+id/recipe_totalTime"
         app:layout_constraintStart_toEndOf="@+id/recipe_small_image" />
 
@@ -81,9 +86,10 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginBottom="4dp"
-        android:text="Calories:"
+        android:layout_marginStart="@dimen/recipe_details_info_horiz_margin"
+        android:layout_marginBottom="@dimen/recipe_details_info_vert_margin"
+        android:text="@string/recipe_details_calories"
+        android:textSize="@dimen/sub_header_text_size"
         app:layout_constraintBottom_toTopOf="@+id/recipe_calories"
         app:layout_constraintStart_toEndOf="@+id/recipe_small_image" />
 
@@ -91,9 +97,10 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginBottom="4dp"
-        android:text="Cautions:"
+        android:layout_marginStart="@dimen/recipe_details_info_horiz_margin"
+        android:layout_marginBottom="@dimen/recipe_details_info_vert_margin"
+        android:text="@string/recipe_details_cautions"
+        android:textSize="@dimen/sub_header_text_size"
         app:layout_constraintBottom_toTopOf="@+id/recipe_cautions"
         app:layout_constraintStart_toEndOf="@+id/recipe_small_image" />
 
@@ -101,9 +108,9 @@
         android:id="@+id/recipe_url"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -113,9 +120,10 @@
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="4dp"
-        android:text="Ingredients:"
+        android:layout_marginStart="24dp"
+        android:layout_marginBottom="@dimen/recipe_details_info_vert_margin"
+        android:text="@string/recipe_details_ingredients"
+        android:textSize="@dimen/sub_header_text_size"
         app:layout_constraintBottom_toTopOf="@+id/recipe_ingredients"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -123,7 +131,7 @@
         android:id="@+id/AddRecipeFromDetailsButton"
         android:layout_width="56dp"
         android:layout_height="43dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
         android:text="Add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

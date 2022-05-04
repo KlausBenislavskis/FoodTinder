@@ -55,9 +55,8 @@ public class FriendsListAdapter extends RecyclerView.Adapter<FriendsListAdapter.
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         final boolean isExpanded = position == mExpandedPosition;
-        String item = friends.get(position);
         holder.name.setText(friends.get(position).toString());
-
+        holder.image.setVisibility(isExpanded?View.VISIBLE:View.GONE);
         holder.dropDownMenu.setVisibility(isExpanded?View.VISIBLE:View.GONE);
         holder.shareButton.setVisibility(isExpanded?View.VISIBLE:View.GONE);
         holder.friendsFavouriteRecipesButton.setVisibility(isExpanded?View.VISIBLE:View.GONE);

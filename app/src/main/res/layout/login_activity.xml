@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/background_image_login"
-        android:layout_width="420dp"
-        android:layout_height="732dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:scaleType="center"
         android:src="@drawable/background_image"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -21,10 +21,8 @@
 
     <Button
         android:id="@+id/button_login_google"
-        android:layout_width="175dp"
-        android:layout_height="50dp"
-        android:background="#FFFFFF"
-        android:backgroundTint="#FFFFFF"
+        android:layout_width="@dimen/adding_recipe_width"
+        android:layout_height="@dimen/adding_recipe_height"
         android:text="Login"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

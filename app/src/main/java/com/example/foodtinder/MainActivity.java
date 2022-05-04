@@ -32,7 +32,7 @@ import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity  {
 
-     public NavController navController;
+    public NavController navController;
     AppBarConfiguration appBarConfiguration;
     DrawerLayout drawerLayout;
     NavigationView navigationDrawer;

@@ -2,4 +2,8 @@
 <resources>
     <color name="colorPrimary">#d32f2f</color>
     <color name="white">#ffffff</color>
+    <color name="recipeDetailsBGGrey">#6BFFFFFF</color>
+    <color name="nvgDrawerRed">#911616</color>
+    <color name="nvgDrawerBlue">#123456</color>
+    <color name="errorColor">#FF0000</color>
 </resources>

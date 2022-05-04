@@ -4,4 +4,8 @@
     <string name="swipe">Swipe</string>
     <string name="favourites">Favourites</string>
     <string name="friends">Friends</string>
+    <string name="recipe_details_totalTime">Total time:</string>
+    <string name="recipe_details_cautions">Cautions:</string>
+    <string name="recipe_details_calories">Calories:</string>
+    <string name="recipe_details_ingredients">Ingredients:</string>
 </resources>

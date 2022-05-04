@@ -7,12 +7,12 @@
 
     <Button
         android:id="@+id/addFriendButton"
-        android:layout_width="125dp"
-        android:layout_height="51dp"
+        android:layout_width="@dimen/adding_recipe_width"
+        android:layout_height="@dimen/adding_recipe_height"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="25dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginEnd="@dimen/friends_list_margin_horiz_button"
+        android:layout_marginBottom="@dimen/friends_list_margin_vert"
         android:text="Add Friend" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -20,12 +20,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="0dp"
         android:background="@drawable/background_image"
         android:clipChildren="false"
         android:clipToPadding="false"
         android:divider="@android:color/transparent"
-        android:dividerHeight="0dp"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:scrollbars="none"
@@ -37,11 +35,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="167dp"
-        android:layout_marginBottom="38dp"
+        android:layout_marginEnd="@dimen/friends_list_margin_horiz_input"
+        android:layout_marginBottom="@dimen/friends_list_margin_vert"
         android:ems="10"
         android:hint="friends email"
-        android:inputType="textEmailAddress"
-        android:minHeight="48dp" />
+        android:inputType="textEmailAddress" />
 
 </RelativeLayout>
