@@ -14,8 +14,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,13 +21,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.foodtinder.MainActivity;
 import com.example.foodtinder.R;
 import com.example.foodtinder.adapters.FavouriteRecipeListAdapter;
-import com.example.foodtinder.adapters.FriendsListAdapter;
-import com.example.foodtinder.models.UserRecipe;
 import com.example.foodtinder.repositories.recipe.RecipeRepository;
-import com.example.foodtinder.ui.Friends_List.FriendsListViewModel;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class FavouriteRecipeFragment extends Fragment {
 
@@ -65,11 +59,6 @@ public class FavouriteRecipeFragment extends Fragment {
                     ((MainActivity)getActivity()).navController.navigate(R.id.nav_recipe_details);
         });
         recipeList.setAdapter(recipeAdapter);
-
-
-    }
-    public FavouriteRecipeFragment()
-    {
 
     }
 }
