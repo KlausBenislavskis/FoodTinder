@@ -50,7 +50,6 @@ public class FavouriteRecipeFragment extends Fragment {
 
         viewModel = new ViewModelProvider(this).get(FavouriteRecipeViewModel.class);
         viewModel.init(getArguments() == null ? "": getArguments().getString("email"));
-        RecipeRepository.getInstance().searchRecipe("chicken");
         loadingBar = view.findViewById(R.id.loadingBar);
         loadingBar.setVisibility(View.INVISIBLE);
         recipeList = view.findViewById(R.id.favouriteRecipeListView);
