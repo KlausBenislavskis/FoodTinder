@@ -4,7 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.Login_Register.LoginFragment">
+    tools:context=".LoginActivity">
+
+    <ProgressBar
+        android:id="@+id/loadingBarLogIn"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="172dp"
+        android:layout_height="202dp"
+        android:layout_centerInParent="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/background_image_login"
@@ -29,4 +40,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.639" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

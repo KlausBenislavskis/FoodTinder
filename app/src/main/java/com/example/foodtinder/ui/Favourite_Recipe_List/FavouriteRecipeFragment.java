@@ -2,11 +2,13 @@ package com.example.foodtinder.ui.Favourite_Recipe_List;
 
 import android.media.Image;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -34,6 +36,7 @@ public class FavouriteRecipeFragment extends Fragment {
     private RecyclerView recipeList;
     private FavouriteRecipeListAdapter recipeAdapter;
     private FavouriteRecipeViewModel viewModel;
+    private ProgressBar loadingBar;
     ImageButton addButton;
     @Nullable
     @Override
@@ -48,7 +51,8 @@ public class FavouriteRecipeFragment extends Fragment {
         viewModel = new ViewModelProvider(this).get(FavouriteRecipeViewModel.class);
         viewModel.init(getArguments() == null ? "": getArguments().getString("email"));
         RecipeRepository.getInstance().searchRecipe("chicken");
-
+        loadingBar = view.findViewById(R.id.loadingBar);
+        loadingBar.setVisibility(View.INVISIBLE);
         recipeList = view.findViewById(R.id.favouriteRecipeListView);
 
         recipeList.hasFixedSize();
@@ -60,9 +64,16 @@ public class FavouriteRecipeFragment extends Fragment {
         });
 
         recipeAdapter.setOnClickListener(userRecipe -> {
-            viewModel.saveId(userRecipe.getId());
-            //Move to Detailed view
-            ((MainActivity)getActivity()).navController.navigate(R.id.nav_recipe_details);
+            loadingBar.setVisibility(View.INVISIBLE);
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    viewModel.saveId(userRecipe.getId());
+                    ((MainActivity)getActivity()).navController.navigate(R.id.nav_recipe_details);
+                }
+            }, 4000);
+            loadingBar.setVisibility(View.VISIBLE);
         });
         recipeList.setAdapter(recipeAdapter);
 

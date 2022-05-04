@@ -3,8 +3,11 @@ package com.example.foodtinder;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 
@@ -38,6 +41,7 @@ public class LoginActivity extends Activity {
 
     private GoogleSignInClient mGoogleSignInClient;
     private Button button;
+    private ProgressBar loadingBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +53,8 @@ public class LoginActivity extends Activity {
         mAuth = FirebaseAuth.getInstance();
         setContentView(R.layout.login_activity);
         button = findViewById(R.id.button_login_google);
+        loadingBar = findViewById(R.id.loadingBarLogIn);
+        loadingBar.setVisibility(View.INVISIBLE);
         button.setOnClickListener(v-> signIn());
     }
 
@@ -111,9 +117,16 @@ public class LoginActivity extends Activity {
 
     // [START signin]
     private void signIn() {
-        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-        startActivityForResult(signInIntent, RC_SIGN_IN);
-
+        loadingBar.setVisibility(View.INVISIBLE);
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+                startActivityForResult(signInIntent, RC_SIGN_IN);
+            }
+        }, 4000);
+        loadingBar.setVisibility(View.VISIBLE);
     }
     // [END signin]
 

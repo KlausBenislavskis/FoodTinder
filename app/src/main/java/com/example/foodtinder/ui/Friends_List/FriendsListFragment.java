@@ -3,11 +3,13 @@ package com.example.foodtinder.ui.Friends_List;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -26,10 +28,11 @@ import com.example.foodtinder.ui.Favourite_Recipe_List.FavouriteRecipeFragment;
 import java.util.ArrayList;
 
 public class FriendsListFragment extends Fragment {
-    RecyclerView friendsList;
-    FriendsListAdapter adapter;
-    Button addFriendButton;
-    EditText email;
+    private RecyclerView friendsList;
+    private FriendsListAdapter adapter;
+    private Button addFriendButton;
+    private ProgressBar loadingBar;
+    private EditText email;
     private FriendsListViewModel viewModel;
 
     @Nullable
@@ -55,6 +58,8 @@ public class FriendsListFragment extends Fragment {
             adapter.set(userItemModels);
         });
         addFriendButton = view.findViewById(R.id.addFriendButton);
+        loadingBar = view.findViewById(R.id.loadingBarFriendsList);
+        loadingBar.setVisibility(View.INVISIBLE);
         email = view.findViewById(R.id.friendsEmailAddressInputField);
         addFriendButton.setOnClickListener(v->{
         if(!adapter.contains(email.getText().toString())) {
@@ -70,9 +75,15 @@ public class FriendsListFragment extends Fragment {
             Bundle bundle = new Bundle();
             bundle.putString("email", email);
             fragment.setArguments(bundle);
-            ((MainActivity)getActivity()).navController.navigate(R.id.nav_favourites,bundle);
+            loadingBar.setVisibility(View.INVISIBLE);
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    ((MainActivity)getActivity()).navController.navigate(R.id.nav_favourites,bundle);
+                }
+            }, 4000);
+            loadingBar.setVisibility(View.VISIBLE);
         });
     }
-
-
 }

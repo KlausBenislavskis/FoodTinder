@@ -5,6 +5,13 @@
      android:layout_height="match_parent"
      android:layout_width="match_parent">
 
+    <ProgressBar
+        android:id="@+id/loadingBarFriendsList"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="172dp"
+        android:layout_height="202dp"
+        android:layout_centerInParent="true" />
+
     <Button
         android:id="@+id/addFriendButton"
         android:layout_width="@dimen/adding_recipe_width"
