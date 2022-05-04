@@ -41,7 +41,6 @@ public class LoginActivity extends Activity {
 
     private GoogleSignInClient mGoogleSignInClient;
     private Button button;
-    private ProgressBar loadingBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,8 +52,6 @@ public class LoginActivity extends Activity {
         mAuth = FirebaseAuth.getInstance();
         setContentView(R.layout.login_activity);
         button = findViewById(R.id.button_login_google);
-        loadingBar = findViewById(R.id.loadingBarLogIn);
-        loadingBar.setVisibility(View.INVISIBLE);
         button.setOnClickListener(v-> signIn());
     }
 
@@ -117,16 +114,8 @@ public class LoginActivity extends Activity {
 
     // [START signin]
     private void signIn() {
-        loadingBar.setVisibility(View.INVISIBLE);
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
                 Intent signInIntent = mGoogleSignInClient.getSignInIntent();
                 startActivityForResult(signInIntent, RC_SIGN_IN);
-            }
-        }, 4000);
-        loadingBar.setVisibility(View.VISIBLE);
     }
     // [END signin]
 

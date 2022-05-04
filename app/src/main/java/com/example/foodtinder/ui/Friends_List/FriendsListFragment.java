@@ -31,7 +31,6 @@ public class FriendsListFragment extends Fragment {
     private RecyclerView friendsList;
     private FriendsListAdapter adapter;
     private Button addFriendButton;
-    private ProgressBar loadingBar;
     private EditText email;
     private FriendsListViewModel viewModel;
 
@@ -58,8 +57,6 @@ public class FriendsListFragment extends Fragment {
             adapter.set(userItemModels);
         });
         addFriendButton = view.findViewById(R.id.addFriendButton);
-        loadingBar = view.findViewById(R.id.loadingBarFriendsList);
-        loadingBar.setVisibility(View.INVISIBLE);
         email = view.findViewById(R.id.friendsEmailAddressInputField);
         addFriendButton.setOnClickListener(v->{
         if(!adapter.contains(email.getText().toString())) {
@@ -75,15 +72,7 @@ public class FriendsListFragment extends Fragment {
             Bundle bundle = new Bundle();
             bundle.putString("email", email);
             fragment.setArguments(bundle);
-            loadingBar.setVisibility(View.INVISIBLE);
-            Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    ((MainActivity)getActivity()).navController.navigate(R.id.nav_favourites,bundle);
-                }
-            }, 4000);
-            loadingBar.setVisibility(View.VISIBLE);
+            ((MainActivity)getActivity()).navController.navigate(R.id.nav_favourites,bundle);
         });
     }
 }
