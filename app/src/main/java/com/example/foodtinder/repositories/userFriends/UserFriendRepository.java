@@ -27,6 +27,7 @@ public class UserFriendRepository {
         friends = new UserFriendLiveData(reference);
     }
     public void addFriend(String friend) {
+
         ArrayList<String> friendsList = friends.getValue();
         if(friendsList == null) {
             friendsList = new ArrayList<>();
@@ -39,6 +40,7 @@ public class UserFriendRepository {
                     .getReference("users"),CurrentUserRepository.getInstance().getSafeCurrentUserEmail(friend));
             friendsReference.get().addOnCompleteListener(v->{
                 if(v.isSuccessful()) {
+                    System.out.println("hi");
                     ArrayList<String> friends = (ArrayList<String>)v.getResult().getValue();
                     if(friends == null) {
                         friends = new ArrayList<>();
