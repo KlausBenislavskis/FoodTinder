@@ -52,9 +52,7 @@ public class FriendsListAdapter extends RecyclerView.Adapter<FriendsListAdapter.
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         final boolean isExpanded = position == mExpandedPosition;
         holder.name.setText(friends.get(position).toString());
-        holder.image.setVisibility(isExpanded?View.VISIBLE:View.GONE);
         holder.dropDownMenu.setVisibility(isExpanded?View.VISIBLE:View.GONE);
-        holder.shareButton.setVisibility(isExpanded?View.VISIBLE:View.GONE);
         holder.friendsFavouriteRecipesButton.setVisibility(isExpanded?View.VISIBLE:View.GONE);
         holder.itemView.setActivated(isExpanded);
         if(isExpanded){
@@ -101,9 +99,7 @@ public class FriendsListAdapter extends RecyclerView.Adapter<FriendsListAdapter.
         ViewHolder(View itemView){
             super(itemView);
             name = itemView.findViewById(R.id.friend_Name);
-            image = itemView.findViewById(R.id.friend_Image);
             dropDownMenu = itemView.findViewById(R.id.dropDownMenu);
-            shareButton = itemView.findViewById(R.id.share_button);
             friendsFavouriteRecipesButton = itemView.findViewById(R.id.friendsRecipesListButton);
             itemView.setOnClickListener(v ->{
                 System.out.println("Clicked");
