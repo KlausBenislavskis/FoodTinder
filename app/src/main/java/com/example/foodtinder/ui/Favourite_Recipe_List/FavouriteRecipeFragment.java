@@ -30,7 +30,6 @@ public class FavouriteRecipeFragment extends Fragment {
     private RecyclerView recipeList;
     private FavouriteRecipeListAdapter recipeAdapter;
     private FavouriteRecipeViewModel viewModel;
-    ImageButton addButton;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -43,7 +42,7 @@ public class FavouriteRecipeFragment extends Fragment {
 
         viewModel = new ViewModelProvider(this).get(FavouriteRecipeViewModel.class);
         viewModel.init(getArguments() == null ? "": getArguments().getString("email"));
-        RecipeRepository.getInstance().searchRecipe("chicken");
+        //RecipeRepository.getInstance().searchRecipe("chicken");
         recipeList = view.findViewById(R.id.favouriteRecipeListView);
 
         recipeList.hasFixedSize();
@@ -55,8 +54,12 @@ public class FavouriteRecipeFragment extends Fragment {
         });
 
         recipeAdapter.setOnClickListener(userRecipe -> {
-                    viewModel.saveId(userRecipe.getId());
-                    ((MainActivity)getActivity()).navController.navigate(R.id.nav_recipe_details);
+            //viewModel.saveId(userRecipe.getId());
+            Fragment fragment = new Fragment();
+            Bundle bundle = new Bundle();
+            bundle.putString("id", userRecipe.getId());
+            fragment.setArguments(bundle);
+            ((MainActivity)getActivity()).navController.navigate(R.id.nav_recipe_details, bundle);
         });
         recipeList.setAdapter(recipeAdapter);
 

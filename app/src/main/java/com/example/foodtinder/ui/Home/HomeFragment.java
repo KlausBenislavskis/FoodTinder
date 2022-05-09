@@ -70,8 +70,11 @@ public class HomeFragment extends Fragment {
             errorLabel.setText("Please input desired type of food");
         }
         else{
-            RecipeRepository.getInstance().setQuery(input.getText().toString());
-            ((MainActivity)getActivity()).navController.navigate(R.id.nav_swipe);
+            Fragment fragment = new Fragment();
+            Bundle bundle = new Bundle();
+            bundle.putString("query", input.getText().toString());
+            fragment.setArguments(bundle);
+            ((MainActivity)getActivity()).navController.navigate(R.id.nav_swipe, bundle);
         }
     }
 }

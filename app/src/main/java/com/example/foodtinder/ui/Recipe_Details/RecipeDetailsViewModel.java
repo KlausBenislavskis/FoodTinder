@@ -13,7 +13,6 @@ import com.example.foodtinder.repositories.userRecipe.UserRecipeRepository;
 
 public class RecipeDetailsViewModel extends AndroidViewModel {
     private final RecipeRepository repository;
-
     private final UserRecipeRepository userRepository;
 
     public RecipeDetailsViewModel(Application app){
@@ -23,20 +22,20 @@ public class RecipeDetailsViewModel extends AndroidViewModel {
 
     }
 
-    public void init() {
-        repository.init();
+    public void init(String id) {
+        repository.init(id);
         userRepository.init("");
     }
+
     public UserRecipeLiveData getRecipes() {
         return userRepository.getRecipes();
     }
-    public String getRecipeId(){
-        return userRepository.getId();
-    }
+
     public void addRecipe(RecipeItemModel recipeItemModel) {
         userRepository.saveRecipe(new UserRecipe(recipeItemModel.getName(), recipeItemModel.getId()));
     }
+
     public MutableLiveData<RecipeItemModel> getRecipeDetails(){
-        return repository.searchRecipeById(getRecipeId());
+        return repository.getSearchedRecipe();
     }
 }

@@ -20,7 +20,7 @@ public class RecipeRepository {
     private static RecipeRepository instance;
     private DatabaseReference reference;
     private final MutableLiveData<ArrayList<Hit>> searchedRecipes;
-    private String query;
+    private final MutableLiveData<RecipeItemModel> searchedRecipe;
 
     public static synchronized RecipeRepository getInstance() {
         if (instance == null) {
@@ -29,13 +29,27 @@ public class RecipeRepository {
         return instance;
     }
 
-    public void init(){
-
+    public void init(String id){
+        Call<Hit> call = ServiceGenerator.getRecipeAPI().getRecipeById(id, "public", Config.app_id, Config.app_key);
+        call.enqueue(new retrofit2.Callback<Hit>() {
+            @EverythingIsNonNull
+            @Override
+            public void onResponse(Call<Hit> call, retrofit2.Response<Hit> response) {
+                if (response.body() != null) {
+                    searchedRecipe.setValue(ApiToModel.map(response.body()));
+                }
+            }
+            @EverythingIsNonNull
+            @Override
+            public void onFailure(Call<Hit> call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
     }
 
     private RecipeRepository() {
         searchedRecipes = new MutableLiveData<>();
-        query = "";
+        searchedRecipe = new MutableLiveData<>();
     }
 
     public MutableLiveData<ArrayList<Hit>> getSearchedRecipes() {
@@ -62,32 +76,8 @@ public class RecipeRepository {
         });
     }
 
-    public  MutableLiveData<RecipeItemModel>  searchRecipeById(String id) {
-        Call<Hit> call = ServiceGenerator.getRecipeAPI().getRecipeById(id, "public", Config.app_id, Config.app_key);
-        MutableLiveData<RecipeItemModel> searchedRecipe = new MutableLiveData<>();
-        call.enqueue(new retrofit2.Callback<Hit>() {
-            @EverythingIsNonNull
-            @Override
-            public void onResponse(Call<Hit> call, retrofit2.Response<Hit> response) {
-                if (response.body() != null) {
-                    searchedRecipe.setValue(ApiToModel.map(response.body()));
-                }
-            }
-            @EverythingIsNonNull
-            @Override
-            public void onFailure(Call<Hit> call, Throwable t) {
-                t.printStackTrace();
-            }
-        });
+    public MutableLiveData<RecipeItemModel> getSearchedRecipe(){
         return searchedRecipe;
-    }
-
-    public void setQuery(String query){
-     this.query = query;
-    }
-
-    public String getQuery(){
-        return query;
     }
 }
 

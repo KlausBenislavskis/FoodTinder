@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -51,13 +52,12 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
 
     class ViewHolder extends RecyclerView.ViewHolder {
         ImageView image;
-        TextView name, url;
+        TextView name;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             image = itemView.findViewById(R.id.item_image);
             name = itemView.findViewById(R.id.item_name);
-            //url = itemView.findViewById(R.id.item);
         }
 
         public void setData(RecipeItemModel recipeItemModel) {
@@ -67,7 +67,6 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
                     .centerCrop()
                     .into(image);
             name.setText(recipeItemModel.getName());
-//            url.setText(recipeItemModel.getImage());
         }
 
     }

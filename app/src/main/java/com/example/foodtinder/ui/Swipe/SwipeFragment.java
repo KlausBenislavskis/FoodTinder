@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.LinearInterpolator;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -44,7 +45,7 @@ public class SwipeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         viewModel = new ViewModelProvider(this).get(SwipeViewModel.class);
-        viewModel.init();
+        viewModel.init(getArguments().getString("query"));
         viewModel.getUserRecipes().observe(getViewLifecycleOwner(), userRecipes -> {
         //dont delete pls, David:why?
         });
@@ -112,8 +113,8 @@ public class SwipeFragment extends Fragment {
                adapter.addRecipes(map(recipes));
             }
         });
-        String query = RecipeRepository.getInstance().getQuery();
-        viewModel.searchRecipe(query);
+        //String query = RecipeRepository.getInstance().getQuery();
+        //viewModel.searchRecipe(query);
         cardStackView.setLayoutManager(manager);
         cardStackView.setAdapter(adapter);
         cardStackView.setItemAnimator(new DefaultItemAnimator());

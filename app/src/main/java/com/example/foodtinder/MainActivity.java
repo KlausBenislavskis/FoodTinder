@@ -67,7 +67,6 @@ public class MainActivity extends AppCompatActivity  {
         navController.navigate(R.id.nav_favourites);
     }
 
-
     public void addFriend(String email)
     {
         UserFriendRepository.getInstance().addFriend(email);
