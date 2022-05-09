@@ -3,12 +3,6 @@ package com.example.foodtinder;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
@@ -17,17 +11,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-
-
-import com.example.foodtinder.models.RecipeItemModel;
-import com.example.foodtinder.models.UserItemModel;
-import com.example.foodtinder.models.UserRecipe;
-import com.example.foodtinder.repositories.recipe.RecipeRepository;
 import com.example.foodtinder.repositories.userCurrent.CurrentUserRepository;
-import com.example.foodtinder.repositories.userFriends.UserFriendRepository;
-import com.example.foodtinder.repositories.userRecipe.UserRecipeRepository;
-import com.example.foodtinder.ui.Favourite_Recipe_List.FavouriteRecipeFragment;
-import com.example.foodtinder.ui.Friends_List.FriendsListFragment;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity  {
@@ -50,10 +34,7 @@ public class MainActivity extends AppCompatActivity  {
     }
     private void checkIfSignedIn() {
         currentUserRepository.getCurrentUser().observe(this, user -> {
-            if (user != null) {
-                String message = "Welcome " + user.getDisplayName();
-            } else
-                startLoginActivity();
+            if(user == null) startLoginActivity();
         });
     }
 
@@ -63,18 +44,7 @@ public class MainActivity extends AppCompatActivity  {
         finish();
 
     }
-    public void onFragmentInteraction() {
-        navController.navigate(R.id.nav_favourites);
-    }
 
-    public void addFriend(String email)
-    {
-        UserFriendRepository.getInstance().addFriend(email);
-    }
-    public void addRecipe(RecipeItemModel itemModel)
-    {
-        UserRecipeRepository.getInstance().saveRecipe(new UserRecipe(itemModel.getName(), itemModel.getId()));
-    }
 
     private void initViews() {
         drawerLayout = findViewById(R.id.drawer_layout);
@@ -88,11 +58,6 @@ public class MainActivity extends AppCompatActivity  {
         CurrentUserRepository.getInstance().signOut(getApplication());
     }
 
-    public void hideActionBar()
-    {
-        initViews();
-        toolbar.setVisibility(View.INVISIBLE);
-    }
 
     private void setupNavigation() {
         navController = Navigation.findNavController(this, R.id.nav_host_fragment);

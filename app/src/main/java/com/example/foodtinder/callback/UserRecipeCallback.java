@@ -8,7 +8,8 @@ import java.util.List;
 
 public class UserRecipeCallback extends DiffUtil.Callback {
 
-    private List<UserRecipe> old, newList;
+    private final List<UserRecipe> old;
+    private List<UserRecipe> newList;
 
     public UserRecipeCallback(List<UserRecipe> old, List<UserRecipe> newList) {
         this.old = old;

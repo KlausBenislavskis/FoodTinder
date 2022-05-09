@@ -17,14 +17,10 @@ import java.util.List;
 
 public class FriendsListAdapter extends RecyclerView.Adapter<FriendsListAdapter.ViewHolder> {
     List<String> friends;
-    private OnClickListener listener;
     int previousExpandedPosition = -1;
     int mExpandedPosition = -1;
     public FriendClickCallBack callback;
 
-    public void setOnClickListener(OnClickListener listener) {
-        this.listener = listener;
-    }
 
     public boolean contains(String email) {
         if(friends != null) {
@@ -110,15 +106,12 @@ public class FriendsListAdapter extends RecyclerView.Adapter<FriendsListAdapter.
             shareButton = itemView.findViewById(R.id.share_button);
             friendsFavouriteRecipesButton = itemView.findViewById(R.id.friendsRecipesListButton);
             itemView.setOnClickListener(v ->{
-                //listener.onClick(friends.get(getBindingAdapterPosition()));
                 System.out.println("Clicked");
 
             });
         }
     }
 
-    public interface OnClickListener {
-        void onClick(UserItemModel friend);
-    }
+
 
 }

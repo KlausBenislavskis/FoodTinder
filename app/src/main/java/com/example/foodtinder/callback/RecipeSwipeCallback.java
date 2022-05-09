@@ -8,7 +8,8 @@ import java.util.List;
 
 public class RecipeSwipeCallback extends DiffUtil.Callback {
 
-    private List<RecipeItemModel> old, newList;
+    private final List<RecipeItemModel> old;
+    private final List<RecipeItemModel> newList;
 
     public RecipeSwipeCallback(List<RecipeItemModel> old, List<RecipeItemModel> newList) {
         this.old = old;

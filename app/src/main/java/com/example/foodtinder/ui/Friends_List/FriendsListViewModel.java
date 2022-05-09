@@ -1,16 +1,13 @@
 package com.example.foodtinder.ui.Friends_List;
 
 import android.app.Application;
+import android.os.Bundle;
 
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.AndroidViewModel;
 
-import com.example.foodtinder.models.RecipeItemModel;
-import com.example.foodtinder.models.UserItemModel;
-import com.example.foodtinder.models.UserRecipe;
 import com.example.foodtinder.repositories.userFriends.UserFriendLiveData;
 import com.example.foodtinder.repositories.userFriends.UserFriendRepository;
-import com.example.foodtinder.repositories.userRecipe.UserRecipeLiveData;
-import com.example.foodtinder.repositories.userRecipe.UserRecipeRepository;
 
 public class FriendsListViewModel  extends AndroidViewModel {
     private final UserFriendRepository userFriendRepository;
@@ -28,5 +25,12 @@ public class FriendsListViewModel  extends AndroidViewModel {
     }
     public UserFriendLiveData getFriends() {
         return userFriendRepository.getFriends();
+    }
+    public Bundle createFriendBundle(String email) {
+        Fragment fragment = new Fragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("email", email);
+        fragment.setArguments(bundle);
+        return bundle;
     }
 }

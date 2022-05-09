@@ -5,6 +5,7 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 
+import com.example.foodtinder.Config;
 import com.example.foodtinder.models.UserItemModel;
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseUser;
@@ -19,7 +20,7 @@ public class CurrentUserRepository {
 
     public CurrentUserRepository() {
         currentUser = new CurrentUserLiveData();
-        database = FirebaseDatabase.getInstance("https://foodtinder-b3f74-default-rtdb.europe-west1.firebasedatabase.app/");
+        database = FirebaseDatabase.getInstance(Config.firebase_db);
         reference = database.getReference("users");
 
     }

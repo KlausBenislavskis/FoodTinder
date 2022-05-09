@@ -25,7 +25,7 @@ public class SwipeViewModel extends AndroidViewModel {
     }
 
     public void init(String query) {
-        userRecipeRepository.init("");
+        userRecipeRepository.init();
         recipeRepository.searchRecipe(query);
     }
     public void onCardSwipedRight(RecipeItemModel recipeItemModel) {

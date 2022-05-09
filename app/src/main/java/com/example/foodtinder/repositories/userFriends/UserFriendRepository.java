@@ -2,6 +2,7 @@ package com.example.foodtinder.repositories.userFriends;
 
 import androidx.annotation.NonNull;
 
+import com.example.foodtinder.Config;
 import com.example.foodtinder.models.UserItemModel;
 import com.example.foodtinder.repositories.userCurrent.CurrentUserRepository;
 import com.google.firebase.database.DatabaseReference;
@@ -23,7 +24,7 @@ public class UserFriendRepository {
         return instance;
     }
     public void init() {
-        reference = getUserFriendsDbReference(FirebaseDatabase.getInstance("https://foodtinder-b3f74-default-rtdb.europe-west1.firebasedatabase.app/").getReference("users"),getCurrentUserSafeEmail());
+        reference = getUserFriendsDbReference(FirebaseDatabase.getInstance(Config.firebase_db).getReference("users"),getCurrentUserSafeEmail());
         friends = new UserFriendLiveData(reference);
     }
     public void addFriend(String friend) {
@@ -35,14 +36,11 @@ public class UserFriendRepository {
             friendsList.add(friend);
             reference.setValue(friendsList);
             DatabaseReference friendsReference =
-            getUserFriendsDbReference(FirebaseDatabase.getInstance("https://foodtinder-b3f74-default-rtdb.europe-west1.firebasedatabase.app/")
+            getUserFriendsDbReference(FirebaseDatabase.getInstance(Config.firebase_db)
                     .getReference("users"),CurrentUserRepository.getInstance().getSafeCurrentUserEmail(friend));
             friendsReference.get().addOnCompleteListener(v->{
                 if(v.isSuccessful()) {
-                    ArrayList<String> friends = (ArrayList<String>)v.getResult().getValue();
-                    if(friends == null) {
-                        friends = new ArrayList<>();
-                    }
+                    ArrayList<String> friends = v.getResult().getValue() == null ? new ArrayList<>() : (ArrayList<String>)v.getResult().getValue();
                     friends.add(CurrentUserRepository.getInstance().getCurrentUser().getValue().getEmail());
                     friendsReference.setValue(friends);
                 }

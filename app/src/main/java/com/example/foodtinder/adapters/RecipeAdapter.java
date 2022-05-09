@@ -22,15 +22,11 @@ import java.util.List;
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder> {
 
     private List<RecipeItemModel> recipeItemModelList;
-    private OnClickListener listener;
 
     public RecipeAdapter(List<RecipeItemModel> recipeItemModelList) {
         this.recipeItemModelList = recipeItemModelList;
     }
 
-    public void setOnClickListener(OnClickListener listener){
-        this.listener = listener;
-    }
 
     @NonNull
     @Override
@@ -85,8 +81,6 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
 
     }
 
-    public interface OnClickListener{
-        void OnClick(RecipeItemModel recipeItem);
-    }
+
 }
 

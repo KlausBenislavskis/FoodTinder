@@ -1,15 +1,10 @@
 package com.example.foodtinder.ui.Favourite_Recipe_List;
 
-import android.media.Image;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ProgressBar;
-import android.widget.Toast;
+
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,13 +16,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.foodtinder.MainActivity;
 import com.example.foodtinder.R;
 import com.example.foodtinder.adapters.FavouriteRecipeListAdapter;
-import com.example.foodtinder.repositories.recipe.RecipeRepository;
+
 
 import java.util.ArrayList;
 
 public class FavouriteRecipeFragment extends Fragment {
 
-    private RecyclerView recipeList;
     private FavouriteRecipeListAdapter recipeAdapter;
     private FavouriteRecipeViewModel viewModel;
     @Nullable
@@ -42,26 +36,22 @@ public class FavouriteRecipeFragment extends Fragment {
 
         viewModel = new ViewModelProvider(this).get(FavouriteRecipeViewModel.class);
         viewModel.init(getArguments() == null ? "": getArguments().getString("email"));
-        //RecipeRepository.getInstance().searchRecipe("chicken");
-        recipeList = view.findViewById(R.id.favouriteRecipeListView);
+        RecyclerView recipeList = view.findViewById(R.id.favouriteRecipeListView);
 
         recipeList.hasFixedSize();
         recipeList.setLayoutManager(new LinearLayoutManager(getContext()));
-        //Temporary
-        recipeAdapter = new FavouriteRecipeListAdapter(getContext(), new ArrayList<>());
+        recipeAdapter = new FavouriteRecipeListAdapter(new ArrayList<>());
         viewModel.getRecipes().observe(getViewLifecycleOwner(), userRecipes -> {
             recipeAdapter.setRecipes(userRecipes);
         });
 
         recipeAdapter.setOnClickListener(userRecipe -> {
-            //viewModel.saveId(userRecipe.getId());
-            Fragment fragment = new Fragment();
-            Bundle bundle = new Bundle();
-            bundle.putString("id", userRecipe.getId());
-            fragment.setArguments(bundle);
+            Bundle bundle = viewModel.getRecipeDetailBundle(userRecipe);
             ((MainActivity)getActivity()).navController.navigate(R.id.nav_recipe_details, bundle);
         });
         recipeList.setAdapter(recipeAdapter);
 
     }
+
+
 }

@@ -18,7 +18,6 @@ import retrofit2.internal.EverythingIsNonNull;
 
 public class RecipeRepository {
     private static RecipeRepository instance;
-    private DatabaseReference reference;
     private final MutableLiveData<ArrayList<Hit>> searchedRecipes;
     private final MutableLiveData<RecipeItemModel> searchedRecipe;
 
