@@ -2,6 +2,7 @@ package com.example.foodtinder.repositories.userRecipe;
 
 import androidx.annotation.NonNull;
 
+import com.example.foodtinder.Config;
 import com.example.foodtinder.models.UserRecipe;
 import com.example.foodtinder.repositories.userCurrent.CurrentUserRepository;
 import com.google.firebase.database.DatabaseReference;
@@ -13,7 +14,6 @@ public class UserRecipeRepository {
     private static UserRecipeRepository instance;
     private DatabaseReference reference;
     private UserRecipeLiveData recipes;
-    private String id;
 
     private UserRecipeRepository() {
     }
@@ -25,24 +25,19 @@ public class UserRecipeRepository {
         return instance;
     }
 
-
     public void init(String email) {
-        if(!email.equals("")) {
             CurrentUserRepository currentUserRepository = CurrentUserRepository.getInstance();
-
-            reference = getUserRecipeDbReference(FirebaseDatabase.getInstance("https://foodtinder-b3f74-default-rtdb.europe-west1.firebasedatabase.app/")
+            reference = getUserRecipeDbReference(FirebaseDatabase.getInstance(Config.firebase_db)
                     .getReference("users"),currentUserRepository.getSafeCurrentUserEmail(email));
-        }else {
-            reference = getUserRecipeDbReference(FirebaseDatabase.getInstance("https://foodtinder-b3f74-default-rtdb.europe-west1.firebasedatabase.app/")
+        recipes = new UserRecipeLiveData(reference);
+    }
+    public void init() {
+            reference = getUserRecipeDbReference(FirebaseDatabase.getInstance(Config.firebase_db)
                     .getReference("users"), getCurrentUserSafeEmail());
-        }
         recipes = new UserRecipeLiveData(reference);
     }
     public void saveRecipe(UserRecipe recipe) {
-        ArrayList<UserRecipe> recipesList = recipes.getValue();
-        if(recipesList == null) {
-            recipesList = new ArrayList<>();
-        }
+        ArrayList<UserRecipe> recipesList = recipes.getValue() != null ? recipes.getValue() : new ArrayList<>();
         recipesList.add(recipe);
         reference.setValue(recipesList);
     }
@@ -62,15 +57,5 @@ public class UserRecipeRepository {
         CurrentUserRepository currentUserRepository = CurrentUserRepository.getInstance();
         return currentUserRepository.getSafeCurrentUserEmail(currentUserRepository.getCurrentUser().getValue().getEmail());
     }
-
-    public void saveId(String id) {
-        this.id = id;
-    }
-
-    public String getId(){
-        return id;
-    }
-
-
 
 }

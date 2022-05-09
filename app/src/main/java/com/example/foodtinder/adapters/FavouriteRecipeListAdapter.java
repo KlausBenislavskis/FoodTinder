@@ -23,14 +23,12 @@ import java.util.List;
 public class FavouriteRecipeListAdapter extends RecyclerView.Adapter<FavouriteRecipeListAdapter.ViewHolder> {
     private ArrayList<UserRecipe> recipes;
     private RecipeClickCallBack callBack;
-    private Context context;
 
     public void setOnClickListener(RecipeClickCallBack listener) {
         this.callBack = listener;
     }
 
-    public FavouriteRecipeListAdapter(Context context, ArrayList<UserRecipe> recipeItemModelList) {
-        this.context = context;
+    public FavouriteRecipeListAdapter( ArrayList<UserRecipe> recipeItemModelList) {
         this.recipes = recipeItemModelList;
     }
 

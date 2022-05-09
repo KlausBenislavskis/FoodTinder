@@ -24,7 +24,7 @@ public class RecipeDetailsViewModel extends AndroidViewModel {
 
     public void init(String id) {
         repository.init(id);
-        userRepository.init("");
+        userRepository.init();
     }
 
     public UserRecipeLiveData getRecipes() {

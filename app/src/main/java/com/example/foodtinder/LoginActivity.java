@@ -118,7 +118,7 @@ public class LoginActivity extends Activity {
 
     private void updateUI(FirebaseUser user) {
         if(user != null) {
-            UserItemModel userItemModel = new UserItemModel(user.getDisplayName(), user.getEmail(), new ArrayList<>(), new ArrayList<>(), String.valueOf(R.drawable.ic_arrow_back_black_24dp));
+            UserItemModel userItemModel = new UserItemModel(user.getEmail());
             CurrentUserRepository.getInstance().addUser(userItemModel);
         }
     }

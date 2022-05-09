@@ -1,15 +1,12 @@
 package com.example.foodtinder.ui.Friends_List;
 
 
-import android.app.Activity;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -22,15 +19,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.foodtinder.MainActivity;
 import com.example.foodtinder.R;
 import com.example.foodtinder.adapters.FriendsListAdapter;
-import com.example.foodtinder.models.UserItemModel;
-import com.example.foodtinder.ui.Favourite_Recipe_List.FavouriteRecipeFragment;
 
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class FriendsListFragment extends Fragment {
-    private RecyclerView friendsList;
     private FriendsListAdapter adapter;
-    private Button addFriendButton;
     private EditText email;
     private FriendsListViewModel viewModel;
 
@@ -47,7 +42,7 @@ public class FriendsListFragment extends Fragment {
         viewModel = new ViewModelProvider(this).get(FriendsListViewModel.class);
         viewModel.init();
 
-        friendsList = view.findViewById(R.id.friendsListView);
+        RecyclerView friendsList = view.findViewById(R.id.friendsListView);
         friendsList.hasFixedSize();
         friendsList.setLayoutManager(new LinearLayoutManager(getContext()));
         ArrayList<String> friends = new ArrayList<>();
@@ -56,11 +51,18 @@ public class FriendsListFragment extends Fragment {
         viewModel.getFriends().observe(getViewLifecycleOwner(), userItemModels -> {
             adapter.set(userItemModels);
         });
-        addFriendButton = view.findViewById(R.id.addFriendButton);
+        Button addFriendButton = view.findViewById(R.id.addFriendButton);
         email = view.findViewById(R.id.friendsEmailAddressInputField);
         addFriendButton.setOnClickListener(v->{
         if(!adapter.contains(email.getText().toString())) {
-            viewModel.onAddFriend(email.getText().toString());
+            Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+            Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(email.getText().toString());
+            if(matcher.find()) {
+                viewModel.onAddFriend(email.getText().toString());
+            }
+            else {
+                Toast.makeText(getContext(), "Insert valid email address", Toast.LENGTH_SHORT).show();
+            }
         }
         else{
             Toast.makeText(getContext(), "User already in friend list", Toast.LENGTH_SHORT).show();
@@ -68,11 +70,10 @@ public class FriendsListFragment extends Fragment {
 
 
         adapter.setOnItemClickListener(email -> {
-            Fragment fragment = new Fragment();
-            Bundle bundle = new Bundle();
-            bundle.putString("email", email);
-            fragment.setArguments(bundle);
+            Bundle bundle = viewModel.createFriendBundle(email);
             ((MainActivity)getActivity()).navController.navigate(R.id.nav_favourites,bundle);
         });
     }
+
+
 }

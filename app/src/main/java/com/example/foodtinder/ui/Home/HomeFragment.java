@@ -14,7 +14,6 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.foodtinder.MainActivity;
 import com.example.foodtinder.R;
-import com.example.foodtinder.repositories.recipe.RecipeRepository;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.squareup.picasso.Picasso;
@@ -22,26 +21,21 @@ import com.squareup.picasso.Picasso;
 
 public class HomeFragment extends Fragment {
 
-    private Button button;
-    private Button searchButton;
     private TextView errorLabel;
-    private TextView emailProfileTextView;
-    private TextView nameProfileTextView;
-    private ImageView profileImageView;
     private EditText input;
-
+    private HomeViewModel homeViewModel;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        HomeViewModel homeViewModel =
+         homeViewModel =
                 new ViewModelProvider(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
-        button = root.findViewById(R.id.sign_out);
-        searchButton = root.findViewById(R.id.search_button);
+        Button button = root.findViewById(R.id.sign_out);
+        Button searchButton = root.findViewById(R.id.search_button);
         input = root.findViewById(R.id.editText);
         errorLabel = root.findViewById(R.id.errorLabel);
-        emailProfileTextView = root.findViewById(R.id.emailProfileTextView);
-        profileImageView = root.findViewById(R.id.profileImageView);
-        nameProfileTextView = root.findViewById(R.id.nameProfileTextView);
+        TextView emailProfileTextView = root.findViewById(R.id.emailProfileTextView);
+        ImageView profileImageView = root.findViewById(R.id.profileImageView);
+        TextView nameProfileTextView = root.findViewById(R.id.nameProfileTextView);
         FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
         if(currentUser != null){
             nameProfileTextView.setText(currentUser.getDisplayName());
@@ -52,7 +46,7 @@ public class HomeFragment extends Fragment {
             ((MainActivity)getActivity()).signOut();
         });
         searchButton.setOnClickListener(v->{
-            searchRecipe(root);
+            searchRecipe();
         });
         return root;
     }
@@ -62,18 +56,14 @@ public class HomeFragment extends Fragment {
         super.onDestroyView();
     }
 
-    public void searchRecipe(View view) {
-        System.out.println(input.getText().toString());
-        String result = input.getText().toString();
-        if(input.getText().toString() == null || input.getText().toString().equals("")){
+    public void searchRecipe() {
+        String input = this.input.getText().toString();
+        if(input.equals("")){
             errorLabel.setVisibility(View.VISIBLE);
             errorLabel.setText("Please input desired type of food");
         }
         else{
-            Fragment fragment = new Fragment();
-            Bundle bundle = new Bundle();
-            bundle.putString("query", input.getText().toString());
-            fragment.setArguments(bundle);
+            Bundle bundle = homeViewModel.searchRecipe(input);
             ((MainActivity)getActivity()).navController.navigate(R.id.nav_swipe, bundle);
         }
     }

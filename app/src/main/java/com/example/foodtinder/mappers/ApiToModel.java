@@ -1,7 +1,6 @@
 package com.example.foodtinder.mappers;
 
 import com.example.foodtinder.models.RecipeItemModel;
-import com.example.foodtinder.models.UserRecipe;
 import com.example.foodtinder.models.api.Hit;
 
 import java.util.ArrayList;
