@@ -21,6 +21,8 @@ import com.example.foodtinder.R;
 import com.example.foodtinder.adapters.FriendsListAdapter;
 
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class FriendsListFragment extends Fragment {
     private FriendsListAdapter adapter;
@@ -53,7 +55,14 @@ public class FriendsListFragment extends Fragment {
         email = view.findViewById(R.id.friendsEmailAddressInputField);
         addFriendButton.setOnClickListener(v->{
         if(!adapter.contains(email.getText().toString())) {
-            viewModel.onAddFriend(email.getText().toString());
+            Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+            Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(email.getText().toString());
+            if(matcher.find()) {
+                viewModel.onAddFriend(email.getText().toString());
+            }
+            else {
+                Toast.makeText(getContext(), "Insert valid email address", Toast.LENGTH_SHORT).show();
+            }
         }
         else{
             Toast.makeText(getContext(), "User already in friend list", Toast.LENGTH_SHORT).show();
