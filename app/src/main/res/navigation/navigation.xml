@@ -18,7 +18,7 @@
     <fragment
         android:id="@+id/nav_favourites"
         android:name="com.example.foodtinder.ui.Favourite_Recipe_List.FavouriteRecipeFragment"
-        android:label="@string/favourites"
+        android:label="Favourites"
         tools:layout="@layout/fragment_favourite_recipe_list" />
     <fragment
         android:id="@+id/nav_friends"
@@ -28,5 +28,5 @@
     <fragment
         android:id="@+id/nav_recipe_details"
         android:name="com.example.foodtinder.ui.Recipe_Details.RecipeDetailsFragment"
-        android:label="RecipeDetailsFragment" />
+        android:label="Recipe Details" />
 </navigation>
