@@ -26,3 +26,6 @@ As a user I want to be able to see specific details about chosen recipe, such th
 
 API link:
 https://developer.edamam.com/edamam-recipe-api
+
+Youtube video presentation link:
+https://www.youtube.com/watch?v=o8SFHvvXN0Y&ab_channel=DavidMichalco
